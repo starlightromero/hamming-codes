@@ -6,6 +6,6 @@ block head
 block content
   ul(id="messages")
     each message in messages
-      li= message
+      li= message.message
   input(type="text" id="newMessage")
   button(type="button" id="sendButton") Send
