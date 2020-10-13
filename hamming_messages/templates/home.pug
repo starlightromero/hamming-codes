@@ -1,11 +1,11 @@
 extends base.pug
 block head
-  script(type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js")
-  script(type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}" defer)
+  script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js')
+  script(type='text/javascript' src='{{ url_for("static", filename="js/main.js") }}' defer)
 
 block content
-  ul(id="messages")
+  ul(id='messages')
     each message in messages
       li= message.message
-  input(type="text" id="newMessage")
-  button(type="button" id="sendButton") Send
+  input(type='text' id='newMessage')
+  button(type='button' id='sendButton') Send

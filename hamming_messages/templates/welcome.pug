@@ -1,8 +1,8 @@
 extends base.pug
 block head
-  script(type="text/javascript" src="{{ url_for('static', filename='js/welcome.js') }}" defer)
+  script(type='text/javascript' src='{{ url_for("static", filename="js/welcome.js") }}' defer)
 
 block content
   h1 Hamming Messages
   h3 Subtitle
-  button(id="enter") Enter
+  button(id='enter') Enter
