@@ -5,6 +5,7 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "secret"
+app.jinja_env.add_extension("pypugjs.ext.jinja.PyPugJSExtension")
 socketio = SocketIO(app, cors_allowed_origins="*")
 cors = CORS(app)
 
@@ -19,7 +20,13 @@ def handle_message(msg):
 @app.route("/")
 def home():
     """Render home page."""
-    return render_template("home.html")
+    return render_template("home.pug")
+
+
+@app.route("/welcome")
+def welcome():
+    """Render welcome page."""
+    return render_template("welcome.pug")
 
 
 if __name__ == "__main__":
