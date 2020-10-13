@@ -21,9 +21,3 @@ def home():
     messages = Message.query.all()
     context = {"messages": messages}
     return render_template("home.pug", **context)
-
-
-@main.route("/welcome")
-def welcome():
-    """Render welcome page."""
-    return render_template("welcome.pug")
