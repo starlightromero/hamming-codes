@@ -75,5 +75,8 @@ def signup():
 @login_required
 def logout():
     """Sign out current user and redirect to welcome."""
+    user = User.query.get_or_404(current_user.id)
+    user.is_online = False
+    db.session.commit()
     logout_user()
     return redirect(url_for("users.welcome"))
