@@ -9,7 +9,13 @@ block content
       li= message.message
   input(type='text' id='newMessage')
   button(type='button' id='sendButton') Send
-  h4 Users
-  ul(id='users')
+  h4 Online Users
+  ul(id='onlineUsers')
     each user in users
-      li= user.username
+      if user.is_online
+        li= user.username
+  h4 Offline Users
+  ul(id='offlineUsers')
+    each user in users
+      unless user.is_online
+        li= user.username
