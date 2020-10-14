@@ -1,4 +1,5 @@
 from flask import Flask, render_template, Blueprint
+from flask_login import login_required
 from flask_socketio import send
 from hamming_messages import socketio, db
 from hamming_messages.models import Message
@@ -16,6 +17,7 @@ def handle_message(msg):
 
 
 @main.route("/")
+@login_required
 def home():
     """Render home page."""
     messages = Message.query.all()
