@@ -1,5 +1,10 @@
-const enterButton = document.getElementById('enter')
+const signin = document.getElementById('signin')
+const signup = document.getElementById('signup')
 
-enterButton.addEventListener('click', () => {
-  window.location.href = '/'
+signin.addEventListener('click', () => {
+  window.location.href = '/signin'
+})
+
+signup.addEventListener('click', () => {
+  window.location.href = '/signup'
 })
