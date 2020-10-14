@@ -9,3 +9,7 @@ block content
       li= message.message
   input(type='text' id='newMessage')
   button(type='button' id='sendButton') Send
+  h4 Users
+  ul(id='users')
+    each user in users
+      li= user.username

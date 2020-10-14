@@ -2,7 +2,7 @@ from flask import Flask, render_template, Blueprint
 from flask_login import login_required
 from flask_socketio import send
 from hamming_messages import socketio, db
-from hamming_messages.models import Message
+from hamming_messages.models import Message, User
 
 main = Blueprint("main", __name__)
 
@@ -21,5 +21,6 @@ def handle_message(msg):
 def home():
     """Render home page."""
     messages = Message.query.all()
-    context = {"messages": messages}
+    users = User.query.all()
+    context = {"messages": messages, "users": users}
     return render_template("home.pug", **context)
