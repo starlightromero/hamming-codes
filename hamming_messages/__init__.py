@@ -10,7 +10,7 @@ cors = CORS()
 db = SQLAlchemy()
 socketio = SocketIO()
 login_manager = LoginManager()
-login_manager.login_view = "users.welcome"
+login_manager.login_view = "users.signin"
 login_manager.session_protection = "strong"
 
 
