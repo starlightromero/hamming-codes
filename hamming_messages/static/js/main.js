@@ -8,7 +8,7 @@ socket.on('connect', () => {
 })
 
 socket.on('message', msg => {
-  const li = document.createElement("li")
+  const li = document.createElement('li')
   li.appendChild(document.createTextNode(msg))
   messages.appendChild(li)
 })
