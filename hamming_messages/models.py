@@ -1,5 +1,6 @@
 from datetime import datetime
 from flask_login import UserMixin
+from passlib.hash import sha256_crypt
 from hamming_messages import db, login_manager
 
 
@@ -18,6 +19,15 @@ class User(db.Model, UserMixin):
     image = db.Column(db.String(20), nullable=False, default="default.jpg")
     password = db.Column(db.String(60), nullable=True)
     messages = db.relationship("Message", backref="sender", lazy=True)
+    is_online = db.Column(db.Boolean, nullable=False, default=True)
+
+    def set_password(self, password):
+        """Set user's password as hash."""
+        self.password = sha256_crypt.hash(password)
+
+    def check_password(self, password):
+        """Check if given password matches hashed password."""
+        return sha256_crypt.verify(password, self.password)
 
 
 class Message(db.Model):
