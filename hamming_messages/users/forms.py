@@ -8,6 +8,7 @@ from wtforms.fields import (
     BooleanField,
 )
 from wtforms.fields.html5 import EmailField
+from email_validator import validate_email, EmailNotValidError
 from hamming_messages.models import User
 
 
@@ -17,7 +18,7 @@ class SignupForm(FlaskForm):
     username = StringField(
         "Username", validators=[DataRequired(), Length(min=2, max=20)]
     )
-    email = EmailField("Email", validators=[DataRequired(), Email()])
+    email = EmailField("Email Address", validators=[DataRequired()])
     password = PasswordField(
         "Password", validators=[DataRequired(), Length(min=8, max=20)]
     )
@@ -47,7 +48,7 @@ class SignupForm(FlaskForm):
 class SigninForm(FlaskForm):
     """User signin form."""
 
-    email = EmailField("Email", validators=[DataRequired(), Email()])
+    email = EmailField("Email Address", validators=[DataRequired()])
     password = PasswordField(
         "Password", validators=[DataRequired(), Length(min=8, max=20)]
     )

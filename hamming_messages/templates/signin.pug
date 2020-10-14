@@ -1,9 +1,28 @@
 extends base.pug
 
 block content
-  form
-    label(for='email') Email Address
-    input(type='email' name='email' id='email' placeholder='name@email.com')
-    label(for='password') Password
-    input(type='password' name='password' id='password' placeholder='&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;')
-    button(type='submit') Sign In
+  .signin
+    form(method="POST")
+      | {{ form.hidden_tag() }}
+      fieldset
+        legend Sign In
+        | {{ form.email.label }}
+        if form.email.errors
+          || {{ form.email(class='is-invalid') }}
+          .invalid-feedback
+            each error in form.email.errors
+              p= error
+        else
+          | {{ form.email }}
+        | {{ form.password.label }}
+        if form.password.errors
+          | {{ form.password(class='is-invalid') }}
+          .invalid-feedback
+            each error in form.password.errors
+              p= error
+        else
+          | {{ form.password }}
+      .submit
+        | {{ form.submit }}
+    .change-form
+      small Need an account? #[a(href='{{ url_for("users.signup") }}') Sign Up]
