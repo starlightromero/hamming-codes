@@ -30,12 +30,15 @@ def signin():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user and user.check_password(form.password.data):
+            user.is_online = True
             login_user(user, remember=form.remember.data)
-            next_page = request.args.get("next")
+            db.session.commit()
+            # next_page = request.args.get("next")
             return (
-                redirect(next_page)
-                if next_page
-                else redirect(url_for("main.home"))
+                # redirect(next_page)
+                # if next_page
+                # else redirect(url_for("main.home"))
+                redirect(url_for("main.home"))
             )
         flash("Sign in unsuccessful. Please verify email and password.")
     context = {
