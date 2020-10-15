@@ -5,8 +5,10 @@ block head
 
 block content
   .messages(id='messages')
-    //- each message in messages
-    //-   li= message.message
+    each message in messages
+      ul
+        li= message.message
+        li= message.sender.username
   input(type='text' id='newMessage')
   button(type='submit' id='sendButton') Send
   h4 Online Users

@@ -5,6 +5,12 @@ const sender = document.getElementById('sender').innerHTML
 
 let socket = io.connect('http://127.0.0.1:5000')
 
+socket.on('connect', () => {
+  // const p = document.createElement('p')
+  // p.appendChild(document.createTextNode(`${sender} has connected!`))
+  // messages.appendChild(p)
+})
+
 socket.on('message', data => {
   if (data['message'] && data['sender']) {
     const ul = document.createElement('ul')
