@@ -105,9 +105,16 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    align-items: center;
+    align-items: flex-end;
     height: 100%;
-    flex-basis: 65%; }
+    flex-basis: 65%;
+    margin: 20px 40px; }
+    main .chat input {
+      width: 200px; }
+    main .chat button {
+      width: 200px; }
+    main .chat span {
+      display: none; }
   main .users {
     display: flex;
     flex-direction: column;
