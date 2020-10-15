@@ -23,6 +23,11 @@ def handle_message(data):
     send(data, broadcast=True)
 
 
+@socketio.on("disconnect")
+def test_disconnect():
+    send("User has disconnected!", broadcast=True)
+
+
 @main.route("/")
 @login_required
 def home():
