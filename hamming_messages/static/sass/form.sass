@@ -1,0 +1,54 @@
+@import 'base'
+
+form
+
+  fieldset
+    border: none
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    width: 300px
+
+    legend
+      font-size: 28px
+      font-weight: 500
+      margin-bottom: 20px
+      color: $dark-color
+
+    label
+      color: $dark-color
+
+    input
+      width: 100%
+
+    input[type=text], input[type=email], input[type=password]
+      background-color: $light-color
+      border: 1px solid $dark-color
+      border-radius: 40px
+      font-size: 16px
+      font-weight: 400
+      color: $dark-color
+      padding: 10px
+      margin-bottom: 20px
+      outline: none
+
+    input[type=text]:focus, input[type=email]:focus, input[type=password]:focus
+      border: 1px solid $primary-color
+      box-shadow: 0 0 3px $primary-color
+
+    .invalid-feedback
+      margin-bottom: 20px
+
+      p
+        color: $primary-color
+        font-weight: 500
+
+.change-form
+  margin-top: 10px
+
+  small
+    color: $dark-color
+
+    a
+      color: $primary-color

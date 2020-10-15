@@ -1,0 +1,135 @@
+@font-face {
+  font-family: "Raj";
+  src: url("../fonts/Rajdhani-Light.ttf") format("truetype");
+  font-weight: 300; }
+@font-face {
+  font-family: "Raj";
+  src: url("../fonts/Rajdhani-Regular.ttf") format("truetype");
+  font-weight: 400; }
+@font-face {
+  font-family: "Raj";
+  src: url("../fonts/Rajdhani-Medium.ttf") format("truetype");
+  font-weight: 500; }
+@font-face {
+  font-family: "Raj";
+  src: url("../fonts/Rajdhani-SemiBold.ttf") format("truetype");
+  font-weight: 600; }
+@font-face {
+  font-family: "Raj";
+  src: url("../fonts/Rajdhani-Bold.ttf") format("truetype");
+  font-weight: 700; }
+html {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box; }
+
+body {
+  margin: 0;
+  text-align: center;
+  display: flex;
+  background-color: #FFF7F6;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%; }
+
+h1, h2, h3, h4, h5, h6, p, button, label, input, legend, small {
+  margin: 0;
+  padding: 0;
+  font-family: "Raj", sans-serif; }
+
+h1 {
+  color: #5C0200;
+  font-size: 40px;
+  font-weight: 700; }
+
+h2 {
+  font-size: 36px;
+  font-weight: 600; }
+
+h3 {
+  font-size: 32px;
+  font-weight: 600; }
+
+h4 {
+  font-size: 28px;
+  font-weight: 500; }
+
+h5 {
+  color: #9C0300;
+  font-size: 24px;
+  font-weight: 500; }
+
+h6 {
+  font-size: 20px;
+  font-weight: 400; }
+
+p.big {
+  font-size: 16px;
+  font-weight: 400; }
+
+p {
+  font-size: 16px;
+  font-weight: 300; }
+
+small {
+  font-size: 12px;
+  font-weight: 400; }
+
+button, input[type=submit] {
+  background-color: #DB0501;
+  border: none;
+  border-radius: 40px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #FFF7F6;
+  height: 40px;
+  width: 120px; }
+
+button:hover, input[type=submit]:hover {
+  background-color: #FF706D; }
+
+main {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%; }
+  main .rooms {
+    background-color: #FF706D;
+    height: 100%;
+    flex-basis: 20%; }
+  main .chat {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+    flex-basis: 65%; }
+  main .users {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #FF706D;
+    height: 100%;
+    flex-basis: 15%; }
+
+input[type=text] {
+  background-color: #FFF7F6;
+  border: 1px solid #5C0200;
+  border-radius: 40px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #5C0200;
+  padding: 10px;
+  margin-bottom: 20px;
+  outline: none; }
+
+input[type=text]:focus {
+  border: 1px solid #DB0501;
+  box-shadow: 0 0 3px #DB0501; }
+
+/*# sourceMappingURL=home.css.map */

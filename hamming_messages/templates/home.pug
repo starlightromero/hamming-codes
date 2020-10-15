@@ -2,23 +2,28 @@ extends base.pug
 block head
   script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js')
   script(type='text/javascript' src='{{ url_for("static", filename="js/main.js") }}' defer)
+  link(rel='stylesheet' href='{{ url_for("static", filename="css/home.css") }}')
 
 block content
-  .messages(id='messages')
-    each message in messages
-      ul
-        li= message.message
-        li= message.sender.username
-  input(type='text' id='newMessage')
-  button(type='submit' id='sendButton') Send
-  h4 Online Users
-  ul(id='onlineUsers')
-    each user in users
-      if user.is_online
-        li= user.username
-  h4 Offline Users
-  ul(id='offlineUsers')
-    each user in users
-      unless user.is_online
-        li= user.username  
-  span(id='sender') #{sender}
+  main
+    .rooms
+    .chat
+      .messages(id='messages')
+        each message in messages
+          ul
+            li= message.sender.username
+            li= message.message
+      input(type='text' id='newMessage')
+      button(type='submit' id='sendButton') Send
+      span(id='sender') #{sender}
+    .users
+      h4 Online Users
+      ul(id='onlineUsers')
+        each user in users
+          if user.is_online
+            li= user.username
+      h4 Offline Users
+      ul(id='offlineUsers')
+        each user in users
+          unless user.is_online
+            li= user.username  

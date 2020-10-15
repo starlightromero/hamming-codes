@@ -1,0 +1,46 @@
+@import 'base'
+
+main
+  display: flex
+  flex-direction: row
+  justify-content: center
+  align-items: center
+  height: 100%
+  width: 100%
+
+  .rooms
+    background-color: $light-accent-color
+    height: 100%
+    flex-basis: 20%
+
+  .chat
+    display: flex
+    flex-direction: column
+    justify-content: flex-end
+    align-items: center
+    height: 100%
+    flex-basis: 65%
+
+  .users
+    display: flex
+    flex-direction: column
+    justify-content: flex-start
+    align-items: center
+    background-color: $light-accent-color
+    height: 100%
+    flex-basis: 15%
+
+input[type=text]
+  background-color: $light-color
+  border: 1px solid $dark-color
+  border-radius: 40px
+  font-size: 16px
+  font-weight: 400
+  color: $dark-color
+  padding: 10px
+  margin-bottom: 20px
+  outline: none
+
+input[type=text]:focus
+  border: 1px solid $primary-color
+  box-shadow: 0 0 3px $primary-color

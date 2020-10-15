@@ -20,7 +20,8 @@
   font-weight: 700; }
 html {
   width: 100%;
-  height: 100%; }
+  height: 100%;
+  box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -33,7 +34,7 @@ body {
   width: 100%;
   height: 100%; }
 
-h1, h2, h3, h4, h5, h6, p, button, label, input {
+h1, h2, h3, h4, h5, h6, p, button, label, input, legend, small {
   margin: 0;
   padding: 0;
   font-family: "Raj", sans-serif; }
@@ -76,7 +77,7 @@ small {
   font-size: 12px;
   font-weight: 400; }
 
-button {
+button, input[type=submit] {
   background-color: #DB0501;
   border: none;
   border-radius: 40px;
@@ -86,17 +87,49 @@ button {
   height: 40px;
   width: 120px; }
 
-button:hover {
+button:hover, input[type=submit]:hover {
   background-color: #FF706D; }
 
-.actions {
+form fieldset {
+  border: none;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 20px; }
+  width: 300px; }
+  form fieldset legend {
+    font-size: 28px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    color: #5C0200; }
+  form fieldset label {
+    color: #5C0200; }
+  form fieldset input {
+    width: 100%; }
+  form fieldset input[type=text], form fieldset input[type=email], form fieldset input[type=password] {
+    background-color: #FFF7F6;
+    border: 1px solid #5C0200;
+    border-radius: 40px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #5C0200;
+    padding: 10px;
+    margin-bottom: 20px;
+    outline: none; }
+  form fieldset input[type=text]:focus, form fieldset input[type=email]:focus, form fieldset input[type=password]:focus {
+    border: 1px solid #DB0501;
+    box-shadow: 0 0 3px #DB0501; }
+  form fieldset .invalid-feedback {
+    margin-bottom: 20px; }
+    form fieldset .invalid-feedback p {
+      color: #DB0501;
+      font-weight: 500; }
 
-.actions > button {
-  margin: 5px; }
+.change-form {
+  margin-top: 10px; }
+  .change-form small {
+    color: #5C0200; }
+    .change-form small a {
+      color: #DB0501; }
 
-/*# sourceMappingURL=main.css.map */
+/*# sourceMappingURL=form.css.map */
