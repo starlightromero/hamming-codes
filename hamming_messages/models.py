@@ -20,6 +20,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(60), nullable=True)
     messages = db.relationship("Message", backref="sender", lazy=True)
     is_online = db.Column(db.Boolean, nullable=False, default=True)
+    sid = db.Column(db.String(32), nullable=True)
 
     def set_password(self, password):
         """Set user's password as hash."""

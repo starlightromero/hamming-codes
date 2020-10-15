@@ -1,4 +1,4 @@
-from flask import Flask, render_template, Blueprint, request
+from flask import render_template, Blueprint, request
 from flask_login import login_required, current_user
 from flask_socketio import send
 from hamming_messages import socketio, db
@@ -16,6 +16,7 @@ def connect_user():
 @socketio.on("message")
 def handle_message(data):
     """Send message to everyone."""
+    print(request.sid)
     sender = User.query.filter_by(username=data["sender"]).first()
     message = Message(message=data["message"], sender_id=sender.id)
     db.session.add(message)
@@ -23,8 +24,17 @@ def handle_message(data):
     send(data, broadcast=True)
 
 
+@socketio.on("username")
+def receive_username(username):
+    user = User.query.filter_by(username=username)
+    user.sid = request.sid
+    db.session.commit()
+    print("Username added!")
+
+
 @socketio.on("disconnect")
-def test_disconnect():
+def disconnect_user():
+    """Send message when user disconnects."""
     send("User has disconnected!", broadcast=True)
 
 
