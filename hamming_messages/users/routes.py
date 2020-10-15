@@ -33,13 +33,7 @@ def signin():
             user.is_online = True
             login_user(user, remember=form.remember.data)
             db.session.commit()
-            # next_page = request.args.get("next")
-            return (
-                # redirect(next_page)
-                # if next_page
-                # else redirect(url_for("main.home"))
-                redirect(url_for("main.home"))
-            )
+            return redirect(url_for("main.home"))
         flash("Sign in unsuccessful. Please verify email and password.")
     context = {
         "title": "Sign In",
