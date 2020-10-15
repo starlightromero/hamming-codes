@@ -10,13 +10,12 @@ main = Blueprint("main", __name__)
 @socketio.on("connect")
 def connect_user():
     """Send message when user connects."""
-    send("User has connected!", broadcast=True)
+    # send("User has connected!", broadcast=True)
 
 
 @socketio.on("message")
 def handle_message(data):
     """Send message to everyone."""
-    print(request.sid)
     sender = User.query.filter_by(username=data["sender"]).first()
     message = Message(message=data["message"], sender_id=sender.id)
     db.session.add(message)
@@ -26,10 +25,11 @@ def handle_message(data):
 
 @socketio.on("username")
 def receive_username(username):
+    """Get username and send message."""
     user = User.query.filter_by(username=username)
     user.sid = request.sid
     db.session.commit()
-    print("Username added!")
+    send(f"{username} has connected!", broadcast=True)
 
 
 @socketio.on("disconnect")

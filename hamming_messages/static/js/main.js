@@ -26,6 +26,12 @@ socket.on('message', data => {
   }
 })
 
+socket.on('username', data => {
+  const p = document.createElement('p')
+  p.appendChild(document.createTextNode(data))
+  messages.appendChild(p)
+})
+
 newMessage.addEventListener('keyup', event => {
   if (event.keyCode === 13) {
     event.preventDefault()
