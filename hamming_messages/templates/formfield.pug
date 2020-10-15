@@ -1,0 +1,9 @@
+mixin formfield(field)
+  | {{ form.field.label }}
+  if form.field.errors
+    || {{ form.field(class='is-invalid') }}
+    .invalid-feedback
+      each error in form.field.errors
+        p= error
+  else
+    | {{ form.field }}
