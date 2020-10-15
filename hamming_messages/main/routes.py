@@ -1,5 +1,5 @@
-from flask import Flask, render_template, Blueprint
-from flask_login import login_required
+from flask import Flask, render_template, Blueprint, request
+from flask_login import login_required, current_user
 from flask_socketio import send
 from hamming_messages import socketio, db
 from hamming_messages.models import Message, User
@@ -7,13 +7,19 @@ from hamming_messages.models import Message, User
 main = Blueprint("main", __name__)
 
 
+@socketio.on("connect")
+def connect_user():
+    """Send message when user connects."""
+    send("User has connected!")
+
+
 @socketio.on("message")
-def handle_message(msg):
-    """Send msg to everyone."""
-    message = Message(message=msg)
-    db.session.add(message)
-    db.session.commit()
-    send(msg, broadcast=True)
+def handle_message(data):
+    """Send message to everyone."""
+    send(data, broadcast=True)
+    # message = Message(message=msg)
+    # db.session.add(message)
+    # send(msg, broadcast=True)
 
 
 @main.route("/")
@@ -22,5 +28,9 @@ def home():
     """Render home page."""
     messages = Message.query.all()
     users = User.query.all()
-    context = {"messages": messages, "users": users}
+    context = {
+        "messages": messages,
+        "users": users,
+        "sender": current_user.username,
+    }
     return render_template("home.pug", **context)

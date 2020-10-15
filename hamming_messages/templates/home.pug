@@ -5,8 +5,8 @@ block head
 
 block content
   ul(id='messages')
-    each message in messages
-      li= message.message
+    //- each message in messages
+    //-   li= message.message
   input(type='text' id='newMessage')
   button(type='button' id='sendButton') Send
   h4 Online Users
@@ -18,4 +18,5 @@ block content
   ul(id='offlineUsers')
     each user in users
       unless user.is_online
-        li= user.username
+        li= user.username  
+  span(id='sender') #{sender}
