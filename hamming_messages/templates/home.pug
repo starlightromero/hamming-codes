@@ -4,11 +4,11 @@ block head
   script(type='text/javascript' src='{{ url_for("static", filename="js/main.js") }}' defer)
 
 block content
-  ul(id='messages')
+  .messages(id='messages')
     //- each message in messages
     //-   li= message.message
   input(type='text' id='newMessage')
-  button(type='button' id='sendButton') Send
+  button(type='submit' id='sendButton') Send
   h4 Online Users
   ul(id='onlineUsers')
     each user in users

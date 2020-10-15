@@ -16,9 +16,16 @@ socket.on('message', data => {
     ul.appendChild(message)
     messages.appendChild(ul)
   } else {
-    const li = document.createElement('li')
-    li.appendChild(document.createTextNode(data))
-    messages.appendChild(li)
+    const p = document.createElement('p')
+    p.appendChild(document.createTextNode(data))
+    messages.appendChild(p)
+  }
+})
+
+newMessage.addEventListener('keyup', event => {
+  if (event.keyCode === 13) {
+    event.preventDefault()
+    sendButton.click()
   }
 })
 
