@@ -37,3 +37,6 @@ block content
           | {{ form.submit }}
       .change-form
         small Already have an account? #[a(href='{{ url_for("users.signin") }}') Sign In]
+    .image
+      img(src='{{ url_for("static", filename="assets/couch-1.svg") }}')
+      figcaption #[a(href='https://www.freepik.com/vectors/people') People vector created by stories - www.freepik.com]
