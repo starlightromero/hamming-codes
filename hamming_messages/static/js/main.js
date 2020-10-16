@@ -6,6 +6,7 @@ const onlineUsersList = document.getElementById('onlineUsers')
 const offlineUsersList = document.getElementById('offlineUsers')
 const onlineUsers = onlineUsersList.querySelectorAll('li')
 const offlineUsers = offlineUsersList.querySelectorAll('li')
+const addRoomButton = document.getElementById('addRoomButton')
 
 const scrollBottom = () => {
   messages.scrollTop = messages.scrollHeight
@@ -92,4 +93,8 @@ onlineUsersList.addEventListener('click', event => {
 offlineUsersList.addEventListener('click', event => {
   const username = event.target.innerHTML
   alert(`DM ${username}`)
+})
+
+addRoomButton.addEventListener('click', () => {
+  alert('Added Chat Room')
 })
