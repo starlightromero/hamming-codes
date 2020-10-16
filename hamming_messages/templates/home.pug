@@ -11,12 +11,18 @@ block content
     .chat
       .messages(id='messages')
         each message in messages
-          ul
-            li= message.sender.username
-            li= message.message
-      input(type='text' id='newMessage' placeholder="What's on your mind?")
-      button(type='submit' id='sendButton') Send
-      span(id='sender') #{sender}
+          if message.sender.username == sender
+            ul.sent-message
+              li.sender= message.sender.username
+              li.message= message.message
+          else
+            ul.received-message
+              li.sender= message.sender.username
+              li.message= message.message
+      .send
+        input(type='text' id='newMessage' placeholder="What's on your mind?")
+        button(type='submit' id='sendButton') Send
+        span(id='sender') #{sender}
     .users
       h4 Online Users
       ul(id='onlineUsers')
