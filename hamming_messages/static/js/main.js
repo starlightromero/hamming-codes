@@ -27,7 +27,6 @@ let room = 'lounge'
 joinRoom('lounge')
 
 socket.on('connect', () => {
-  socket.emit('usernameConnected', sender)
   scrollBottom()
 })
 
@@ -54,11 +53,6 @@ socket.on('message', data => {
     messages.appendChild(p)
   }
   scrollBottom()
-})
-
-socket.on('disconnect', () => {
-  console.log(sender)
-  socket.emit('usernameDisconnected', sender)
 })
 
 rooms.forEach(room => {
