@@ -96,7 +96,8 @@ html {
       height: 40px;
       width: 120px; }
     html body button:hover, html body input[type=submit]:hover {
-      background-color: #ff5941; }
+      background-color: #ff5941;
+      cursor: pointer; }
 
 .actions {
   display: flex;
