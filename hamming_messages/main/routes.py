@@ -19,23 +19,6 @@ def handle_message(data):
     send(data, broadcast=True)
 
 
-@socketio.on("usernameConnected")
-def connect_username(username):
-    """Get username and send message."""
-    user = User.query.filter_by(username=username)
-    user.sid = request.sid
-    db.session.commit()
-
-
-@socketio.on("usernameDisconnected")
-def disconnect_username(username):
-    """Get username and send message."""
-    user = User.query.filter_by(username=username)
-    print(username)
-    user.sid = ""
-    db.session.commit()
-
-
 @socketio.on("join")
 def on_join(data):
     """User joins a room."""
