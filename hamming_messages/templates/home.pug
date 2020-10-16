@@ -11,6 +11,8 @@ block content
         h2 Rooms
         img(src='{{ url_for("static", filename="assets/add.svg") }}' id='addRoomButton')
       .room-list
+      .settings
+        img(src='{{ url_for("static", filename="assets/settings.svg") }}')
     .chat
       .messages(id='messages')
         each message in messages
