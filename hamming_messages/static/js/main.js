@@ -7,15 +7,28 @@ const offlineUsersList = document.getElementById('offlineUsers')
 const onlineUsers = onlineUsersList.querySelectorAll('li')
 const offlineUsers = offlineUsersList.querySelectorAll('li')
 const addRoomButton = document.getElementById('addRoomButton')
+const rooms = document.querySelectorAll('.room')
 
 const scrollBottom = () => {
   messages.scrollTop = messages.scrollHeight
 }
 
+const leaveRoom = room => {
+  socket.emit('leave', {'username': sender, 'room': room})
+}
+
+const joinRoom = room => {
+  socket.emit('join', {'username': sender, 'room': room})
+}
+
 let socket = io.connect('http://127.0.0.1:5000')
+
+let room = 'lounge'
+joinRoom('lounge')
 
 socket.on('connect', () => {
   socket.emit('usernameConnected', sender)
+  scrollBottom()
 })
 
 socket.on('message', data => {
@@ -31,6 +44,10 @@ socket.on('message', data => {
     ul.appendChild(senderli)
     ul.appendChild(messageli)
     messages.appendChild(ul)
+  } else if (data['message']) {
+    const p = document.createElement('p')
+    p.appendChild(document.createTextNode(data['message']))
+    messages.appendChild(p)
   } else {
     const p = document.createElement('p')
     p.appendChild(document.createTextNode(data))
@@ -39,38 +56,23 @@ socket.on('message', data => {
   scrollBottom()
 })
 
-socket.on('usernameConnected', data => {
-  console.log(data)
-  scrollBottom()
-  // const p = document.createElement('p')
-  // p.appendChild(document.createTextNode(data))
-  // messages.appendChild(p)
-  // const onlineUsers = onlineUsersList.querySelectorAll('li')
-  // for (user of onlineUsers) {
-  //   console.log(user.innerHTML)
-  //   if (user.innerHTML === username) {
-  //     console.log('yes')
-  //   }
-  // }
-})
-
 socket.on('disconnect', () => {
   console.log(sender)
   socket.emit('usernameDisconnected', sender)
 })
 
-socket.on('usernameDisconnected', data => {
-  console.log(data)
-  // const p = document.createElement('p')
-  // p.appendChild(document.createTextNode(data))
-  // messages.appendChild(p)
-  // const onlineUsers = onlineUsersList.querySelectorAll('li')
-  // for (user of onlineUsers) {
-  //   console.log(user.innerHTML)
-  //   if (user.innerHTML === username) {
-  //     console.log('yes')
-  //   }
-  // }
+rooms.forEach(room => {
+  room.onclick = () => {
+    let newRoom = room.innerHTML
+    if (newRoom === room) {
+      message = `You are already in ${room} room.`
+      // printSysMsg(msg)
+    } else {
+      leaveRoom(room)
+      joinRoom(newRoom)
+      room = newRoom
+    }
+  }
 })
 
 newMessage.addEventListener('keyup', event => {
