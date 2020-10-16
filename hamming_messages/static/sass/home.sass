@@ -9,52 +9,131 @@ main
   width: 100%
 
   .rooms
-    background-color: $light-accent-color
+    border-right: 2px solid $primary-color
     height: 100%
     flex-basis: 20%
 
     h2
-      color: $light-color
+      color: $primary-color
 
   .chat
     display: flex
     flex-direction: column
-    justify-content: flex-end
-    align-items: flex-end
+    justify-content: center
+    align-items: center
     height: 100%
     flex-basis: 65%
-    padding: 40px
-    padding-bottom: 80px
 
-    input
-      width: 200px
+    .messages
+      padding: 40px
+      flex-basis: 80%
+      display: flex
+      flex-direction: column
+      justify-content: center
+      align-items: center
+      overflow-y: scroll
+      width: 100%
+      padding: 0
+      padding-bottom: 20px
+      padding-top: 100px
 
-    button
-      width: 220px
+      &::-webkit-scrollbar
+        display: none
 
-    span
-      display: none
+      ul:first-child
+        margin-top: 60px
+
+      ul
+        padding: 10px 20px
+        border-radius: 40px
+        min-width: 100px
+        max-width: 45%
+
+        .sender, .message
+          list-style: none
+
+        .sender
+          text-align: left
+
+        .message
+          text-align: right
+
+      .sent-message
+        align-self: flex-end
+        margin-right: 30px
+        background-color: $primary-color
+
+        .sender
+          color: $light-color
+
+        .message
+          color: $dark-color
+
+      .received-message
+        align-self: flex-start
+        margin-left: 30px
+        background-color: $light-color
+        border: 2px solid $primary-color
+
+        .sender
+          color: $primary-color
+
+        .message
+          color: $dark-color
+
+    .send
+      flex-basis: 20%
+      display: flex
+      flex-direction: column
+      justify-content: center
+      align-items: center
+      background-color: $primary-color
+      width: 100%
+
+      input
+        width: 80%
+
+        &:hover
+          border: 1px solid $light-accent-color
+          box-shadow: 0 0 3px $light-accent-color
+
+      button
+        width: 200px
+        height: 40px
+        background-color: $dark-accent-color
+        align-self: flex-end
+        margin-right: 150px
+
+        &:hover
+          background-color: $dark-color
+
+      span
+        display: none
 
   .users
     display: flex
     flex-direction: column
     justify-content: flex-start
     align-items: center
-    background-color: $light-accent-color
+    border-left: 2px solid $primary-color
     height: 100%
     flex-basis: 15%
 
-input[type=text]
-  background-color: $light-color
-  border: 1px solid $dark-color
-  border-radius: 40px
-  font-size: 16px
-  font-weight: 400
-  color: $dark-color
-  padding: 10px
-  margin-bottom: 20px
-  outline: none
+    h4
+      color: $primary-color
 
-input[type=text]:focus
-  border: 1px solid $primary-color
-  box-shadow: 0 0 3px $primary-color
+    ul
+      padding: 0
+      width: 80%
+
+      li
+        background-color: $primary-color
+        color: $light-color
+        list-style: none
+        margin-bottom: 10px
+        width: 100%
+        padding: 10px 0
+        border-radius: 20px
+
+        &:hover
+          background-color: $accent-color
