@@ -7,12 +7,6 @@ from hamming_messages.models import Message, User
 main = Blueprint("main", __name__)
 
 
-@socketio.on("connect")
-def connect_user():
-    """Send message when user connects."""
-    # send("User has connected!", broadcast=True)
-
-
 @socketio.on("message")
 def handle_message(data):
     """Send message to everyone."""
@@ -23,8 +17,8 @@ def handle_message(data):
     send(data, broadcast=True)
 
 
-@socketio.on("username")
-def receive_username(username):
+@socketio.on("usernameConnected")
+def connect_username(username):
     """Get username and send message."""
     user = User.query.filter_by(username=username)
     user.sid = request.sid
@@ -32,10 +26,14 @@ def receive_username(username):
     send(f"{username} has connected!", broadcast=True)
 
 
-@socketio.on("disconnect")
-def disconnect_user():
-    """Send message when user disconnects."""
-    send("User has disconnected!", broadcast=True)
+@socketio.on("usernameDisconnected")
+def disconnect_username(username):
+    """Get username and send message."""
+    user = User.query.filter_by(username=username)
+    print(username)
+    user.sid = ""
+    db.session.commit()
+    send(f"{username} has disconnected!", broadcast=True)
 
 
 @main.route("/")
