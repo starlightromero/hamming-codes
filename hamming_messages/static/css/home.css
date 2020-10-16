@@ -96,7 +96,8 @@ html {
       height: 40px;
       width: 120px; }
     html body button:hover, html body input[type=submit]:hover {
-      background-color: #ff5941; }
+      background-color: #ff5941;
+      cursor: pointer; }
 
 main {
   display: flex;
@@ -108,9 +109,20 @@ main {
   main .rooms {
     border-right: 2px solid #ff725e;
     height: 100%;
-    flex-basis: 20%; }
+    flex-basis: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center; }
     main .rooms h2 {
-      color: #ff725e; }
+      color: #ff725e;
+      padding-top: 10px; }
+    main .rooms .room-list {
+      height: 400px; }
+    main .rooms img {
+      padding-bottom: 10px; }
+      main .rooms img:hover {
+        cursor: pointer; }
   main .chat {
     display: flex;
     flex-direction: column;
@@ -207,6 +219,7 @@ main {
         padding: 10px 0;
         border-radius: 20px; }
         main .users ul li:hover {
-          background-color: #ff5941; }
+          background-color: #ff5941;
+          cursor: pointer; }
 
 /*# sourceMappingURL=home.css.map */

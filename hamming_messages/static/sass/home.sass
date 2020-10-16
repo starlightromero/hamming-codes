@@ -12,9 +12,24 @@ main
     border-right: 2px solid $primary-color
     height: 100%
     flex-basis: 20%
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+    align-items: center
+
 
     h2
       color: $primary-color
+      padding-top: 10px
+
+    .room-list
+      height: 400px
+
+    img
+      padding-bottom: 10px
+
+      &:hover
+        cursor: pointer
 
   .chat
     display: flex
@@ -137,3 +152,4 @@ main
 
         &:hover
           background-color: $accent-color
+          cursor: pointer
