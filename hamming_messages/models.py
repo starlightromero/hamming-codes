@@ -38,3 +38,11 @@ class Message(db.Model):
     message = db.Column(db.String(500), nullable=False)
     date = db.Column(db.DateTime, default=datetime.utcnow)
     sender_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+
+
+class Room(db.Model):
+    """Room database class."""
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(30), nullable=False)
+    description = db.Column(db.String(200), nullable=False)
