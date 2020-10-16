@@ -7,10 +7,13 @@ block head
 block content
   main
     .rooms
-      .rooms-header
+      .roomHeader
         h2 Rooms
         img(src='{{ url_for("static", filename="assets/add.svg") }}' id='addRoomButton')
-      .room-list
+      .roomList
+        ul
+          each room in rooms
+            li.room= room
       .settings
         img(src='{{ url_for("static", filename="assets/settings.svg") }}')
     .chat
