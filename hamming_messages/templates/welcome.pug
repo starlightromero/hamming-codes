@@ -4,8 +4,12 @@ block head
   link(rel='stylesheet' href='{{ url_for("static", filename="css/welcome.css") }}')
 
 block content
-  h1 Hamming Messages
-  h5 Your gateway into error-correction
-  .actions
-    button(id='signin') Sign In
-    button(id='signup') Sign Up
+  main
+    .welcome
+      h1 Hamming Messages
+      h5 Your error-correcting chat app
+      .actions
+        button(id='signin') Sign In
+        button(id='signup') Sign Up
+    .image
+      img(src='{{ url_for("static", filename="assets/messaging.svg") }}')
