@@ -22,73 +22,64 @@ html {
   width: 100%;
   height: 100%;
   box-sizing: border-box; }
-
-body {
-  margin: 0;
-  text-align: center;
-  display: flex;
-  background-color: #FFF7F6;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%; }
-
-h1, h2, h3, h4, h5, h6, p, button, label, input, legend, small {
-  margin: 0;
-  padding: 0;
-  font-family: "Raj", sans-serif; }
-
-h1 {
-  color: #5C0200;
-  font-size: 40px;
-  font-weight: 700; }
-
-h2 {
-  font-size: 36px;
-  font-weight: 600; }
-
-h3 {
-  font-size: 32px;
-  font-weight: 600; }
-
-h4 {
-  font-size: 28px;
-  font-weight: 500; }
-
-h5 {
-  color: #9C0300;
-  font-size: 24px;
-  font-weight: 500; }
-
-h6 {
-  font-size: 20px;
-  font-weight: 400; }
-
-p.big {
-  font-size: 16px;
-  font-weight: 400; }
-
-p {
-  font-size: 16px;
-  font-weight: 300; }
-
-small {
-  font-size: 12px;
-  font-weight: 400; }
-
-button, input[type=submit] {
-  background-color: #DB0501;
-  border: none;
-  border-radius: 40px;
-  font-size: 16px;
-  font-weight: 400;
-  color: #FFF7F6;
-  height: 40px;
-  width: 120px; }
-
-button:hover, input[type=submit]:hover {
-  background-color: #FF706D; }
+  html body {
+    margin: 0;
+    text-align: center;
+    background-color: #ffdbc8;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%; }
+    html body h1, html body h2, html body h3, html body h4, html body h5, html body h6, html body p, html body button, html body label, html body input, html body legend, html body small, html body figcaption {
+      margin: 0;
+      padding: 0;
+      font-family: "Raj", sans-serif; }
+    html body h1 {
+      color: #263238;
+      font-size: 40px;
+      font-weight: 700; }
+    html body h2 {
+      font-size: 36px;
+      font-weight: 600; }
+    html body h3 {
+      font-size: 32px;
+      font-weight: 600; }
+    html body h4 {
+      font-size: 28px;
+      font-weight: 500; }
+    html body h5 {
+      color: #455a64;
+      font-size: 24px;
+      font-weight: 500; }
+    html body h6 {
+      font-size: 20px;
+      font-weight: 400; }
+    html body p.big {
+      font-size: 16px;
+      font-weight: 400; }
+    html body p {
+      font-size: 16px;
+      font-weight: 300; }
+    html body small {
+      font-size: 12px;
+      font-weight: 400; }
+    html body figcaption {
+      font-size: 8px; }
+      html body figcaption a {
+        color: #ff725e; }
+    html body button, html body input[type=submit] {
+      background-color: #ff725e;
+      border: none;
+      border-radius: 40px;
+      font-size: 16px;
+      font-weight: 400;
+      color: #ffdbc8;
+      height: 40px;
+      width: 120px; }
+    html body button:hover, html body input[type=submit]:hover {
+      background-color: #eb996e; }
 
 .actions {
   display: flex;

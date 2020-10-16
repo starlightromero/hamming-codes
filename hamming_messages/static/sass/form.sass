@@ -1,54 +1,84 @@
 @import 'base'
 
-form
+main
+  width: 100%
+  height: 100%
+  display: flex
+  flex-direction: row
+  justify-content: center
+  align-items: center
+  background-color: $light-color
 
-  fieldset
-    border: none
+  .signin, .signup
+    flex-basis: 50%
+    width: 100%
+    height: 100%
     display: flex
     flex-direction: column
     justify-content: center
     align-items: center
-    width: 300px
 
-    legend
-      font-size: 28px
-      font-weight: 500
-      margin-bottom: 20px
-      color: $dark-color
+    form
 
-    label
-      color: $dark-color
+      fieldset
+        border: none
+        display: flex
+        flex-direction: column
+        justify-content: center
+        align-items: center
+        width: 300px
 
-    input
-      width: 100%
+        legend
+          font-size: 28px
+          font-weight: 500
+          margin-bottom: 20px
+          color: $dark-color
 
-    input[type=text], input[type=email], input[type=password]
-      background-color: $light-color
-      border: 1px solid $dark-color
-      border-radius: 40px
-      font-size: 16px
-      font-weight: 400
-      color: $dark-color
-      padding: 10px
-      margin-bottom: 20px
-      outline: none
+        label
+          color: $dark-color
 
-    input[type=text]:focus, input[type=email]:focus, input[type=password]:focus
-      border: 1px solid $primary-color
-      box-shadow: 0 0 3px $primary-color
+        input
+          width: 100%
 
-    .invalid-feedback
-      margin-bottom: 20px
+        input[type=text], input[type=email], input[type=password]
+          background-color: $light-color
+          border: 1px solid $dark-color
+          border-radius: 40px
+          font-size: 16px
+          font-weight: 400
+          color: $dark-color
+          padding: 10px
+          margin-bottom: 20px
+          outline: none
 
-      p
-        color: $primary-color
-        font-weight: 500
+        input[type=text]:focus, input[type=email]:focus, input[type=password]:focus
+          border: 1px solid $primary-color
+          box-shadow: 0 0 3px $primary-color
 
-.change-form
-  margin-top: 10px
+        .invalid-feedback
+          margin-bottom: 20px
 
-  small
-    color: $dark-color
+          p
+            color: $primary-color
+            font-weight: 500
 
-    a
-      color: $primary-color
+    .change-form
+      margin-top: 10px
+
+      small
+        color: $dark-color
+
+        a
+          color: $primary-color
+
+  .image
+    flex-basis: 50%
+    width: 100%
+    height: 100%
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+
+    img
+      width: 90%
