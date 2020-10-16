@@ -3,36 +3,37 @@ block head
   link(rel='stylesheet' href='{{ url_for("static", filename="css/form.css") }}')
 
 block content
-  .signup
-    form(method="POST")
-      | {{ form.hidden_tag() }}
-      fieldset
-        legend Sign Up
-        | {{ form.username.label }}
-        if form.username.errors
-          | {{ form.username(class='is-invalid') }}
-          .invalid-feedback
-            each error in form.username.errors
-              p= error
-        else
-          | {{ form.username }}
-        | {{ form.email.label }}
-        if form.email.errors
-          | {{ form.email(class='is-invalid') }}
-          .invalid-feedback
-            each error in form.email.errors
-              p= error
-        else
-          | {{ form.email }}
-        | {{ form.password.label }}
-        if form.password.errors
-          | {{ form.password(class='is-invalid') }}
-          .invalid-feedback
-            each error in form.password.errors
-              p= error
-        else
-          | {{ form.password }}
-      .submit
-        | {{ form.submit }}
-    .change-form
-      small Already have an account? #[a(href='{{ url_for("users.signin") }}') Sign In]
+  main
+    .signup
+      form(method="POST")
+        | {{ form.hidden_tag() }}
+        fieldset
+          legend Sign Up
+          | {{ form.username.label }}
+          if form.username.errors
+            | {{ form.username(class='is-invalid') }}
+            .invalid-feedback
+              each error in form.username.errors
+                p= error
+          else
+            | {{ form.username }}
+          | {{ form.email.label }}
+          if form.email.errors
+            | {{ form.email(class='is-invalid') }}
+            .invalid-feedback
+              each error in form.email.errors
+                p= error
+          else
+            | {{ form.email }}
+          | {{ form.password.label }}
+          if form.password.errors
+            | {{ form.password(class='is-invalid') }}
+            .invalid-feedback
+              each error in form.password.errors
+                p= error
+          else
+            | {{ form.password }}
+        .submit
+          | {{ form.submit }}
+      .change-form
+        small Already have an account? #[a(href='{{ url_for("users.signin") }}') Sign In]
