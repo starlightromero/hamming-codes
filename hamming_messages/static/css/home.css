@@ -112,26 +112,44 @@ main {
     flex-basis: 20%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center; }
-    main .rooms .rooms-header {
+    main .rooms .roomHeader {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
       width: 95%;
       padding-top: 10px; }
-      main .rooms .rooms-header h2 {
+      main .rooms .roomHeader h2 {
         color: #ff725e; }
-      main .rooms .rooms-header img {
+      main .rooms .roomHeader img {
         background-color: #ff725e;
         border-radius: 100%;
         padding: 5px; }
-        main .rooms .rooms-header img:hover {
+        main .rooms .roomHeader img:hover {
           background-color: #ff5941;
           cursor: pointer; }
-    main .rooms .room-list {
-      height: 400px; }
+    main .rooms .roomList {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      width: 100%; }
+      main .rooms .roomList ul {
+        padding: 0;
+        width: 80%; }
+        main .rooms .roomList ul li {
+          background-color: #ff725e;
+          color: #ffdbc8;
+          list-style: none;
+          margin-bottom: 10px;
+          width: 100%;
+          padding: 10px 0;
+          border-radius: 20px; }
+          main .rooms .roomList ul li:hover {
+            background-color: #ff5941;
+            cursor: pointer; }
     main .rooms .settings {
       display: flex;
       flex-direction: column;
