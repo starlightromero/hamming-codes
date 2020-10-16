@@ -14,7 +14,7 @@ main
     flex-basis: 20%
     display: flex
     flex-direction: column
-    justify-content: flex-start
+    justify-content: space-between
     align-items: center
 
     .rooms-header
@@ -30,13 +30,34 @@ main
 
 
       img
-        width: 36px
+        background-color: $primary-color
+        border-radius: 100%
+        padding: 5px
 
         &:hover
+          background-color: $accent-color
           cursor: pointer
 
     .room-list
       height: 400px
+
+    .settings
+      display: flex
+      flex-direction: column
+      justify-content: center
+      align-items: flex-start
+      width: 100%
+      margin-bottom: 10px
+      margin-left: 10px
+
+      img
+        background-color: $primary-color
+        padding: 10px
+        border-radius: 100%
+
+        &:hover
+          background-color: $accent-color
+          cursor: pointer
 
   .chat
     display: flex
