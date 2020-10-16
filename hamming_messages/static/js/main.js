@@ -2,11 +2,12 @@ const messages = document.getElementById('messages')
 const sendButton = document.getElementById('sendButton')
 const newMessage = document.getElementById('newMessage')
 const sender = document.getElementById('sender').innerHTML
+const onlineUsersList = document.getElementById('onlineUsers')
 
 let socket = io.connect('http://127.0.0.1:5000')
 
 socket.on('connect', () => {
-  socket.emit('username', sender)
+  socket.emit('usernameConnected', sender)
 })
 
 socket.on('message', data => {
@@ -26,10 +27,37 @@ socket.on('message', data => {
   }
 })
 
-socket.on('username', data => {
+socket.on('usernameConnected', data => {
+  console.log(data)
+  // const p = document.createElement('p')
+  // p.appendChild(document.createTextNode(data))
+  // messages.appendChild(p)
+  // const onlineUsers = onlineUsersList.querySelectorAll('li')
+  // for (user of onlineUsers) {
+  //   console.log(user.innerHTML)
+  //   if (user.innerHTML === username) {
+  //     console.log('yes')
+  //   }
+  // }
+})
+
+socket.on('disconnect', () => {
+  console.log(sender)
+  socket.emit('usernameDisconnected', sender)
+})
+
+socket.on('usernameDisconnected', data => {
+  console.log(data)
   const p = document.createElement('p')
   p.appendChild(document.createTextNode(data))
   messages.appendChild(p)
+  const onlineUsers = onlineUsersList.querySelectorAll('li')
+  for (user of onlineUsers) {
+    console.log(user.innerHTML)
+    if (user.innerHTML === username) {
+      console.log('yes')
+    }
+  }
 })
 
 newMessage.addEventListener('keyup', event => {
