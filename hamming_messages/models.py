@@ -20,7 +20,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(60), nullable=True)
     messages = db.relationship("Message", backref="sender", lazy=True)
     is_online = db.Column(db.Boolean, nullable=False, default=True)
-    sid = db.Column(db.String(32), nullable=True)
+    room_id = db.Column(db.Integer, db.ForeignKey("room.id"))
 
     def set_password(self, password):
         """Set user's password as hash."""
@@ -38,6 +38,7 @@ class Message(db.Model):
     message = db.Column(db.String(500), nullable=False)
     date = db.Column(db.DateTime, default=datetime.utcnow)
     sender_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    room_id = db.Column(db.Integer, db.ForeignKey("room.id"))
 
 
 class Room(db.Model):
@@ -46,3 +47,5 @@ class Room(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), nullable=False)
     description = db.Column(db.String(200), nullable=False)
+    users = db.relationship("User", backref="room", lazy=True)
+    messages = db.relationship("Message", backref="room", lazy=True)
