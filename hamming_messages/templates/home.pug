@@ -7,9 +7,10 @@ block head
 block content
   main
     .rooms
-      h2 Rooms
+      .rooms-header
+        h2 Rooms
+        img(src='{{ url_for("static", filename="assets/add.svg") }}' id='addRoomButton')
       .room-list
-      img(src='{{ url_for("static", filename="assets/add.svg") }}')
     .chat
       .messages(id='messages')
         each message in messages
