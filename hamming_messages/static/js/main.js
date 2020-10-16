@@ -3,6 +3,9 @@ const sendButton = document.getElementById('sendButton')
 const newMessage = document.getElementById('newMessage')
 const sender = document.getElementById('sender').innerHTML
 const onlineUsersList = document.getElementById('onlineUsers')
+const offlineUsersList = document.getElementById('offlineUsers')
+const onlineUsers = onlineUsersList.querySelectorAll('li')
+const offlineUsers = offlineUsersList.querySelectorAll('li')
 
 const scrollBottom = () => {
   messages.scrollTop = messages.scrollHeight
@@ -79,4 +82,14 @@ newMessage.addEventListener('keyup', event => {
 sendButton.addEventListener('click', () => {
   socket.send({'message': newMessage.value, 'sender': sender})
   newMessage.value = ''
+})
+
+onlineUsersList.addEventListener('click', event => {
+  const username = event.target.innerHTML
+  alert(`DM ${username}`)
+})
+
+offlineUsersList.addEventListener('click', event => {
+  const username = event.target.innerHTML
+  alert(`DM ${username}`)
 })
