@@ -99,15 +99,33 @@ html {
       background-color: #ff5941;
       cursor: pointer; }
 
-.actions {
+main {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  margin-top: 20px; }
-
-.actions > button {
-  margin: 5px; }
+  width: 100%;
+  height: 100%; }
+  main .welcome {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-basis: 50%; }
+    main .welcome .actions {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px; }
+    main .welcome .actions > button {
+      margin: 5px; }
+  main .image {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-basis: 50%; }
 
 /*# sourceMappingURL=welcome.css.map */
