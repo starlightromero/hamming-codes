@@ -20,7 +20,7 @@ block content
     .chat
       .messages(id='messages')
         each message in messages
-          if message.sender.username == sender
+          if message.sender.username == sender.username
             ul.sent-message
               li.sender= message.sender.username
               li.message= message.message
@@ -31,7 +31,7 @@ block content
       .send
         input(type='text' id='newMessage' placeholder="What's on your mind?")
         button(type='submit' id='sendButton') Send
-        span(id='sender') #{sender}
+        span(id='sender') #{sender.username}
     .users
       h4 Online Users
       ul(id='onlineUsers')
@@ -45,27 +45,52 @@ block content
             li.user= user.username
     .backdrop      
     .addRoomModal
-      h5.close x
+      h5.closeAddRoom #[img(src='{{ url_for("static", filename="assets/close.svg") }}' alt='close modal')]
       form.addRoomForm
-        | {{ form.hidden_tag() }}
+        | {{ add_room_form.hidden_tag() }}
         fieldset
           legend Add Chat Room
-          | {{ form.name.label }}
-          if form.name.errors
-            | {{ form.name(class='is-invalid roomName') }}
+          | {{ add_room_form.name.label }}
+          if add_room_form.name.errors
+            | {{ add_room_form.name(class='is-invalid roomName') }}
             .invalid-feedback
-              each error in form.name.errors
+              each error in add_room_form.name.errors
                 p= error
           else
-            | {{ form.name(class='roomName') }}
-          | {{ form.description.label }}
-          if form.description.errors
-            | {{ form.description(class='is-invalid roomDescription') }}
+            | {{ add_room_form.name(class='roomName') }}
+          | {{ add_room_form.description.label }}
+          if add_room_form.description.errors
+            | {{ add_room_form.description(class='is-invalid roomDescription') }}
             .invalid-feedback
-              each error in form.description.errors
+              each error in add_room_form.description.errors
                 p= error
           else
-            | {{ form.description(class='roomDescription')}}
+            | {{ add_room_form.description(class='roomDescription')}}
         .submit
-          | {{ form.submit(class="addRoomFormSubmit") }}
+          | {{ add_room_form.submit(class="addRoomFormSubmit") }}
+    .settingsModal
+      h5.closeSettings #[img(src='{{ url_for("static", filename="assets/close.svg") }}' alt='close modal')]
+      form.updateAccountForm
+        | {{ update_account_form.hidden_tag() }}
+        fieldset
+          legend Settings
+          | {{ update_account_form.username.label }}
+          if update_account_form.username.errors
+            | {{ update_account_form.username(class='is-invalid updatedUsername', value=sender.username) }}
+            .invalid-feedback
+              each error in update_account_form.username.errors
+                p= error
+          else
+            | {{ update_account_form.username(class='updatedUsername', value=sender.username) }}
+          | {{ update_account_form.email.label }}
+          if update_account_form.email.errors
+            | {{ update_account_form.email(class='is-invalid updatedEmail', value=sender.email) }}
+            .invalid-feedback
+              each error in update_account_form.email.errors
+                p= error
+          else
+            | {{ update_account_form.email(class='updatedEmail', value=sender.email)}}
+        .submit
+          | {{ update_account_form.submit(class='updatedSubmit') }}
+      button(id="signout") Sign Out
       
