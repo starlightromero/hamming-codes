@@ -38,7 +38,9 @@ def handle_disrupted_message(data):
 def handle_message(data):
     """Send message to everyone."""
     sender = User.query.filter_by(username=data["sender"]).first()
-    message = Message(message=data["message"], sender_id=sender.id)
+    message = Message(
+        message=data["message"], sender_id=sender.id, room_id=sender.room_id
+    )
     db.session.add(message)
     db.session.commit()
     send(data, broadcast=True)
@@ -50,6 +52,10 @@ def on_join(data):
     username = data["username"]
     room = data["room"]
     join_room(room)
+    user = User.query.filter_by(username=username).first_or_404()
+    current_room = Room.query.filter_by(name=room).first_or_404()
+    user.room_id = current_room.id
+    db.session.commit()
     send(
         {"message": f"{username} has joined {room}."},
         room=room,
@@ -66,6 +72,7 @@ def on_leave(data):
 
 
 @main.route("/")
+@main.route("/chat")
 @login_required
 def home():
     """Render home page."""
