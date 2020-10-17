@@ -59,10 +59,10 @@ def on_join(data):
 @socketio.on("leave")
 def on_leave(data):
     """User leaves a room."""
-    username = data["username"]
-    room = data["room"]
-    leave_room(room)
-    send({"message": f"{username} has left."}, room=room)
+    # username = data["username"]
+    # room = data["room"]
+    # leave_room(room)
+    # send({"message": f"{username} has left."}, room=room)
 
 
 @main.route("/")
@@ -85,7 +85,7 @@ def home():
     return render_template("home.pug", **context)
 
 
-@main.route("/add-room", methods=["PUT"])
+@main.route("/room", methods=["PUT"])
 @login_required
 def add_room():
     """Add chat room to database."""
@@ -96,4 +96,17 @@ def add_room():
         db.session.add(room)
         db.session.commit()
         return (room.name), 201
+    return (""), 404
+
+
+@main.route("/room", methods=["DELETE"])
+@login_required
+def delete_room():
+    """Delete chat room and remove from database."""
+    name = request.json.get("name")
+    if name:
+        room = Room.query.filter_by(name=name).first_or_404()
+        db.session.delete(room)
+        db.session.commit()
+        return (room.name), 200
     return (""), 404
