@@ -2,6 +2,7 @@ extends base.pug
 block head
   script(type='text/javascript' src='https://unpkg.com/axios/dist/axios.min.js')
   script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js')
+  script(type='text/javascript' src='long-press-event.js')
   script(type='text/javascript' src='{{ url_for("static", filename="js/main.js") }}' defer)
   link(rel='stylesheet' href='{{ url_for("static", filename="css/home.css") }}')
 
@@ -21,16 +22,18 @@ block content
       .messages(id='messages')
         each message in messages
           if message.sender.username == sender.username
-            ul.sent-message
+            ul.sentMessage
               li.sender= message.sender.username
               li.message= message.message
           else
-            ul.received-message
+            ul.receivedMessage
               li.sender= message.sender.username
               li.message= message.message
       .send
         input(type='text' id='newMessage' placeholder="What's on your mind?")
-        button(type='submit' id='sendButton') Send
+        .sendActions
+          button(type='button' id='disruptedSendButton') Send Disruption
+          button(type='submit' id='sendButton') Send
         span(id='sender') #{sender.username}
     .users
       h4 Online Users
