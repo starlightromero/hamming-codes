@@ -4,6 +4,7 @@ from flask_socketio import send, join_room, leave_room, emit
 from hamming_messages import socketio, db
 from hamming_messages.models import Message, User, Room
 from hamming_messages.main.forms import AddRoomForm
+from hamming_messages.users.forms import UpdateAccountForm
 
 main = Blueprint("main", __name__)
 
@@ -59,14 +60,16 @@ def home():
     """Render home page."""
     messages = Message.query.all()
     users = User.query.all()
-    form = AddRoomForm()
+    add_room_form = AddRoomForm()
+    update_account_form = UpdateAccountForm()
     rooms = Room.query.all()
     context = {
         "messages": messages,
         "users": users,
-        "sender": current_user.username,
+        "sender": current_user,
         "rooms": rooms,
-        "form": form,
+        "add_room_form": add_room_form,
+        "update_account_form": update_account_form,
     }
     return render_template("home.pug", **context)
 
