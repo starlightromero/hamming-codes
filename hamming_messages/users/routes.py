@@ -87,13 +87,15 @@ def update_account():
         user.username = username
         user.email = email
         db.session.commit()
-        return (user), 201
+        return ({"username": user.username, "email": user.email}), 201
     return (""), 404
 
 
-@users.route("/user", method=["GET"])
+@users.route("/user", methods=["GET"])
 @login_required
 def get_user():
     """Get user info for current user."""
     user = User.query.get_or_404(current_user.id)
-    return (user), 200
+    return (
+        {"id": user.id, "username": user.username, "email": user.email}
+    ), 200
