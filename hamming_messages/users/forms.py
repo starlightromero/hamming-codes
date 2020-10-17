@@ -8,7 +8,6 @@ from wtforms.fields import (
     BooleanField,
 )
 from wtforms.fields.html5 import EmailField
-from email_validator import validate_email, EmailNotValidError
 from hamming_messages.models import User
 
 
@@ -54,3 +53,33 @@ class SigninForm(FlaskForm):
     )
     remember = BooleanField("Remember Me")
     submit = SubmitField("Sign In")
+
+
+class UpdateAccountForm(FlaskForm):
+    """User update account form."""
+
+    username = StringField(
+        "Username", validators=[DataRequired(), Length(min=2, max=20)]
+    )
+    email = EmailField("Email Address", validators=[DataRequired()])
+    submit = SubmitField("Update")
+
+    def validate_username(self, username):
+        """Validate username is not taken."""
+        user = User.query.filter_by(username=username.data).first()
+        if user:
+            raise ValidationError(
+                "That username is taken. Please choose a different username."
+            )
+
+    def validate_email(self, email):
+        """Validate email is not in use."""
+        user = User.query.filter_by(email=email.data).first()
+        if user:
+            raise ValidationError(
+                """
+                    The email is already in use. Please enter a different email.
+                    Alternatively, if you forgot your password, go to the signin
+                    page and click \"Forgot Password\".
+                    """
+            )
