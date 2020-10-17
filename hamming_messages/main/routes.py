@@ -1,12 +1,11 @@
-from flask import render_template, Blueprint, request
+from flask import render_template, Blueprint, request, redirect, url_for
 from flask_login import login_required, current_user
 from flask_socketio import send, join_room, leave_room, emit
 from hamming_messages import socketio, db
-from hamming_messages.models import Message, User
+from hamming_messages.models import Message, User, Room
+from hamming_messages.main.forms import AddRoomForm
 
 main = Blueprint("main", __name__)
-
-ROOMS = ["lounge", "news", "games", "coding"]
 
 
 @socketio.on("userOnline")
@@ -60,10 +59,27 @@ def home():
     """Render home page."""
     messages = Message.query.all()
     users = User.query.all()
+    form = AddRoomForm()
+    rooms = Room.query.all()
     context = {
         "messages": messages,
         "users": users,
         "sender": current_user.username,
-        "rooms": ROOMS,
+        "rooms": rooms,
+        "form": form,
     }
     return render_template("home.pug", **context)
+
+
+@main.route("/add-room", methods=["PUT"])
+@login_required
+def add_room():
+    """Add chat room to database."""
+    name = request.json.get("name")
+    description = request.json.get("description")
+    if name and description:
+        room = Room(name=name, description=description)
+        db.session.add(room)
+        db.session.commit()
+        return (room.name), 201
+    return (""), 404
