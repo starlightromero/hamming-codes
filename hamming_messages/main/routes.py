@@ -1,6 +1,7 @@
 from flask import render_template, Blueprint, request, redirect, url_for
 from flask_login import login_required, current_user
 from flask_socketio import send, join_room, leave_room, emit
+from reedsolo import RSCodec
 from hamming_messages import socketio, db
 from hamming_messages.models import Message, User, Room
 from hamming_messages.main.forms import AddRoomForm
@@ -21,6 +22,16 @@ def user_offline(data):
     """User goes offline."""
     username = data["username"]
     emit("userOffline", username, broadcast=True)
+
+
+@socketio.on("disruptedMessage")
+def handle_disrupted_message(data):
+    """Send disrupted message to everyone."""
+    # sender = User.query.filter_by(username=data["sender"]).first()
+    # message = Message(message=data["message"], sender_id=sender.id)
+    # db.session.add(message)
+    # db.session.commit()
+    # send(data, broadcast=True)
 
 
 @socketio.on("message")
