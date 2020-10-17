@@ -15,7 +15,7 @@ block content
           each room in rooms
             li.room= room
       .settings
-        img(src='{{ url_for("static", filename="assets/settings.svg") }}')
+        img(src='{{ url_for("static", filename="assets/settings.svg") }}' id='settingsButton')
     .chat
       .messages(id='messages')
         each message in messages
@@ -36,9 +36,9 @@ block content
       ul(id='onlineUsers')
         each user in users
           if user.is_online
-            li= user.username
+            li.user= user.username
       h4 Offline Users
       ul(id='offlineUsers')
         each user in users
           unless user.is_online
-            li= user.username
+            li.user= user.username

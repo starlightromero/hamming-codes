@@ -2,15 +2,37 @@ const messages = document.getElementById('messages')
 const sendButton = document.getElementById('sendButton')
 const newMessage = document.getElementById('newMessage')
 const sender = document.getElementById('sender').innerHTML
-const onlineUsersList = document.getElementById('onlineUsers')
-const offlineUsersList = document.getElementById('offlineUsers')
-const onlineUsers = onlineUsersList.querySelectorAll('li')
-const offlineUsers = offlineUsersList.querySelectorAll('li')
+let onlineUsersList = document.getElementById('onlineUsers')
+let offlineUsersList = document.getElementById('offlineUsers')
+let onlineUsers = onlineUsersList.querySelectorAll('li')
+let offlineUsers = offlineUsersList.querySelectorAll('li')
 const addRoomButton = document.getElementById('addRoomButton')
 const rooms = document.querySelectorAll('.room')
+const settingsButton = document.getElementById('settingsButton')
 
 const scrollBottom = () => {
   messages.scrollTop = messages.scrollHeight
+}
+
+const userOnline = username => {
+  for (user of offlineUsers) {
+    if (user.innerHTML === username) {
+      user.remove()
+      onlineUsersList.appendChild(user)
+    }
+  }
+}
+
+const userOffline = username => {
+  onlineUsersList = document.getElementById('onlineUsers')
+  offlineUsersList = document.getElementById('offlineUsers')
+  onlineUsers = onlineUsersList.querySelectorAll('li')
+  for (user of onlineUsers) {
+    if (user.innerHTML === username) {
+      user.remove()
+      offlineUsersList.appendChild(user)
+    }
+  }
 }
 
 const leaveRoom = room => {
@@ -21,6 +43,8 @@ const joinRoom = room => {
   socket.emit('join', {'username': sender, 'room': room})
 }
 
+// SOCKETS
+
 let socket = io.connect('http://127.0.0.1:5000')
 
 let room = 'lounge'
@@ -28,6 +52,15 @@ joinRoom('lounge')
 
 socket.on('connect', () => {
   scrollBottom()
+  socket.emit('userOnline', {'username': sender})
+})
+
+socket.on('userOnline', username => {
+  userOnline(username)
+})
+
+socket.on('userOffline', username => {
+  userOffline(username)
 })
 
 socket.on('message', data => {
@@ -67,6 +100,13 @@ rooms.forEach(room => {
       room = newRoom
     }
   }
+})
+
+// EVENT LISTENERS
+
+settingsButton.addEventListener('click', () => {
+  socket.emit('userOffline', {'username': sender})
+  window.location.href = '/signout'
 })
 
 newMessage.addEventListener('keyup', event => {
