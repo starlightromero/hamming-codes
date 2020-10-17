@@ -125,8 +125,7 @@ main {
         color: #ff725e; }
       main .roomsSection .roomHeader img {
         background-color: #ff725e;
-        border-radius: 100%;
-        padding: 5px; }
+        border-radius: 100%; }
         main .roomsSection .roomHeader img:hover {
           background-color: #ff5941;
           cursor: pointer; }
