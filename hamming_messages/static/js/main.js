@@ -6,7 +6,6 @@ window.addEventListener('DOMContentLoaded', () => {
   const messages = document.getElementById('messages')
   const sendButton = document.getElementById('sendButton')
   const newMessage = document.getElementById('newMessage')
-  const sender = document.getElementById('sender').innerHTML
   let onlineUsersList = document.getElementById('onlineUsers')
   let offlineUsersList = document.getElementById('offlineUsers')
   let onlineUsers = onlineUsersList.querySelectorAll('li')
@@ -41,10 +40,12 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   const leaveRoom = room => {
+    const sender = document.getElementById('sender').innerHTML
     socket.emit('leave', {'username': sender, 'room': room})
   }
 
   const joinRoom = room => {
+    const sender = document.getElementById('sender').innerHTML
     socket.emit('join', {'username': sender, 'room': room})
   }
 
@@ -82,15 +83,53 @@ window.addEventListener('DOMContentLoaded', () => {
     closeBackdrop()
   }
 
+  const updatePastMessages = (oldSender, newSender) => {
+    const sentMessages = document.querySelectorAll('.sentMessage')
+    for (const message of sentMessages) {
+      message.querySelector('.sender').innerHTML = newSender
+    }
+  }
+
+  const updateSender = sender => {
+    const oldUsername = document.getElementById('sender')
+    updatePastMessages(oldUsername, sender)
+    onlineUsers = onlineUsersList.querySelectorAll('li')
+    for (user of onlineUsers) {
+      if (user.innerHTML === oldUsername.innerHTML) {
+        user.innerHTML = sender
+      }
+    }
+    oldUsername.innerHTML = sender
+  }
+
+  const getUser = () => {
+    async function getUserRequest () {
+      try {
+        let response = await axios({
+          method: 'GET',
+          url: '/user'
+        })
+        if (response) {
+          updateSender(response.data.username)
+          joinRoom(room)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getUserRequest()
+  }
+
   // SOCKETS
 
   let socket = io.connect('http://127.0.0.1:5000')
 
-  let room = 'lounge'
-  joinRoom('lounge')
+  let room = document.querySelectorAll('.room')[0].innerHTML
+  joinRoom(room)
 
   socket.on('connect', () => {
     scrollBottom()
+    const sender = document.getElementById('sender').innerHTML
     socket.emit('userOnline', {'username': sender})
   })
 
@@ -103,9 +142,10 @@ window.addEventListener('DOMContentLoaded', () => {
   })
 
   socket.on('message', data => {
+    const sender = document.getElementById('sender').innerHTML
     if (data['message'] && data['sender']) {
       const ul = document.createElement('ul')
-      data['sender'] === sender ? ul.classList.add('sent-message') : ul.classList.add('received-message')
+      data['sender'] === sender ? ul.classList.add('sentMessage') : ul.classList.add('receivedMessage')
       const senderli = document.createElement('li')
       const messageli = document.createElement('li')
       senderli.appendChild(document.createTextNode(data['sender']))
@@ -141,7 +181,12 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   })
 
-  // EVENT LISTENERS
+  document.querySelectorAll('.room').addEventListener('long-press', event => {
+    console.log(event.target.innerHTML)
+    // Delete Room
+  })
+
+  // MESSAGES
 
   newMessage.addEventListener('keyup', event => {
     if (event.keyCode === 13) {
@@ -151,19 +196,28 @@ window.addEventListener('DOMContentLoaded', () => {
   })
 
   sendButton.addEventListener('click', () => {
+    const sender = document.getElementById('sender').innerHTML
     socket.send({'message': newMessage.value, 'sender': sender})
     newMessage.value = ''
   })
 
-  onlineUsersList.addEventListener('click', event => {
-    const username = event.target.innerHTML
-    alert(`DM ${username}`)
+  document.getElementById('disruptedSendButton').addEventListener('click', () => {
+    const sender = document.getElementById('sender').innerHTML
+    socket.send({'message': newMessage.value, 'sender': sender})
+    newMessage.value = ''
   })
 
-  offlineUsersList.addEventListener('click', event => {
-    const username = event.target.innerHTML
-    alert(`DM ${username}`)
+  // USERS LISTS
+
+  document.getElementById('onlineUsers').addEventListener('click', event => {
+    console.log(event.target.innerHTML)
   })
+
+  document.getElementById('offlineUsers').addEventListener('click', event => {
+    console.log(event.target.innerHTML)
+  })
+
+  // BACKDROP
 
   document.querySelector('.backdrop').addEventListener('click', () => {
     closeAddRoomModal()
@@ -223,6 +277,7 @@ window.addEventListener('DOMContentLoaded', () => {
   })
 
   document.getElementById('signout').addEventListener('click', () => {
+    const sender = document.getElementById('sender').innerHTML
     socket.emit('userOffline', {'username': sender})
     window.location.href = '/signout'
   })
@@ -241,7 +296,7 @@ window.addEventListener('DOMContentLoaded', () => {
         })
         if (response) {
           closeSettingsModal()
-          document.getElementById('sender').innerHTML = response.data.username
+          getUser()
         }
       } catch (error) {
         console.log(error)
