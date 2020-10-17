@@ -252,7 +252,7 @@ main {
     main .users ul {
       padding: 0;
       width: 80%; }
-      main .users ul li {
+      main .users ul .user {
         background-color: #ff725e;
         color: #ffdbc8;
         list-style: none;
@@ -260,7 +260,7 @@ main {
         width: 100%;
         padding: 10px 0;
         border-radius: 20px; }
-        main .users ul li:hover {
+        main .users ul .user:hover {
           background-color: #ff5941;
           cursor: pointer; }
 
