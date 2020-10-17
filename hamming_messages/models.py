@@ -22,6 +22,10 @@ class User(db.Model, UserMixin):
     is_online = db.Column(db.Boolean, nullable=False, default=True)
     room_id = db.Column(db.Integer, db.ForeignKey("room.id"))
 
+    def __repr__(self):
+        """User returns username and room name."""
+        return f"User('{self.username}', '{self.room.name}')"
+
     def set_password(self, password):
         """Set user's password as hash."""
         self.password = sha256_crypt.hash(password)
@@ -39,6 +43,10 @@ class Message(db.Model):
     date = db.Column(db.DateTime, default=datetime.utcnow)
     sender_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     room_id = db.Column(db.Integer, db.ForeignKey("room.id"))
+
+    def __repr__(self):
+        """Message returns sender username and room name."""
+        return f"User('{self.sender.username}', '{self.room.name}')"
 
 
 class Room(db.Model):
