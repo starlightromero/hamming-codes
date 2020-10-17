@@ -123,8 +123,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
   let socket = io.connect('http://127.0.0.1:5000')
 
-  let room = document.querySelectorAll('.room')[0].innerHTML
-  joinRoom(room)
+  let currentRoom = document.querySelectorAll('.room')[0].innerHTML
+  joinRoom(currentRoom)
 
   socket.on('connect', () => {
     scrollBottom()
