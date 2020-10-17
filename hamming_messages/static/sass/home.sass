@@ -127,7 +127,7 @@ main
         .message
           text-align: right
 
-      .sent-message
+      .sentMessage
         align-self: flex-end
         margin-right: 30px
         background-color: $primary-color
@@ -138,7 +138,7 @@ main
         .message
           color: $dark-color
 
-      .received-message
+      .receivedMessage
         align-self: flex-start
         margin-left: 30px
         background-color: $light-color
@@ -166,15 +166,20 @@ main
           border: 1px solid $light-accent-color
           box-shadow: 0 0 3px $light-accent-color
 
-      button
-        width: 200px
-        height: 40px
-        background-color: $dark-accent-color
-        align-self: flex-end
-        margin-right: 150px
+      .sendActions
+        display: flex
+        flex-direction: row
+        justify-content: space-around
+        align-items: center
+        width: 100%
 
-        &:hover
-          background-color: $dark-color
+        button
+          width: 200px
+          height: 40px
+          background-color: $dark-accent-color
+
+          &:hover
+            background-color: $dark-color
 
       span
         display: none

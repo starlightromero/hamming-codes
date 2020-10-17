@@ -203,22 +203,22 @@ main {
           text-align: left; }
         main .chat .messages ul .message {
           text-align: right; }
-      main .chat .messages .sent-message {
+      main .chat .messages .sentMessage {
         align-self: flex-end;
         margin-right: 30px;
         background-color: #ff725e; }
-        main .chat .messages .sent-message .sender {
+        main .chat .messages .sentMessage .sender {
           color: #ffdbc8; }
-        main .chat .messages .sent-message .message {
+        main .chat .messages .sentMessage .message {
           color: #263238; }
-      main .chat .messages .received-message {
+      main .chat .messages .receivedMessage {
         align-self: flex-start;
         margin-left: 30px;
         background-color: #ffdbc8;
         border: 2px solid #ff725e; }
-        main .chat .messages .received-message .sender {
+        main .chat .messages .receivedMessage .sender {
           color: #ff725e; }
-        main .chat .messages .received-message .message {
+        main .chat .messages .receivedMessage .message {
           color: #263238; }
     main .chat .send {
       flex-basis: 20%;
@@ -233,14 +233,18 @@ main {
         main .chat .send input:hover {
           border: 1px solid #eb996e;
           box-shadow: 0 0 3px #eb996e; }
-      main .chat .send button {
-        width: 200px;
-        height: 40px;
-        background-color: #455a64;
-        align-self: flex-end;
-        margin-right: 150px; }
-        main .chat .send button:hover {
-          background-color: #263238; }
+      main .chat .send .sendActions {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%; }
+        main .chat .send .sendActions button {
+          width: 200px;
+          height: 40px;
+          background-color: #455a64; }
+          main .chat .send .sendActions button:hover {
+            background-color: #263238; }
       main .chat .send span {
         display: none; }
   main .users {
