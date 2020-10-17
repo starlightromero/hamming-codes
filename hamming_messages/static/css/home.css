@@ -106,7 +106,7 @@ main {
   align-items: center;
   height: 100%;
   width: 100%; }
-  main .rooms {
+  main .roomsSection {
     border-right: 2px solid #ff725e;
     height: 100%;
     flex-basis: 20%;
@@ -114,32 +114,35 @@ main {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center; }
-    main .rooms .roomHeader {
+    main .roomsSection .roomHeader {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
       width: 95%;
       padding-top: 10px; }
-      main .rooms .roomHeader h2 {
+      main .roomsSection .roomHeader h2 {
         color: #ff725e; }
-      main .rooms .roomHeader img {
+      main .roomsSection .roomHeader img {
         background-color: #ff725e;
         border-radius: 100%;
         padding: 5px; }
-        main .rooms .roomHeader img:hover {
+        main .roomsSection .roomHeader img:hover {
           background-color: #ff5941;
           cursor: pointer; }
-    main .rooms .roomList {
+    main .roomsSection .roomList {
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
       align-items: center;
-      width: 100%; }
-      main .rooms .roomList ul {
+      width: 100%;
+      overflow: scroll; }
+      main .roomsSection .roomList::-webkit-scrollbar {
+        display: none; }
+      main .roomsSection .roomList ul {
         padding: 0;
         width: 80%; }
-        main .rooms .roomList ul li {
+        main .roomsSection .roomList ul li {
           background-color: #ff725e;
           color: #ffdbc8;
           list-style: none;
@@ -147,22 +150,23 @@ main {
           width: 100%;
           padding: 10px 0;
           border-radius: 20px; }
-          main .rooms .roomList ul li:hover {
+          main .roomsSection .roomList ul li:hover {
             background-color: #ff5941;
             cursor: pointer; }
-    main .rooms .settings {
+    main .roomsSection .settings {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: flex-start;
       width: 100%;
       margin-bottom: 10px;
-      margin-left: 10px; }
-      main .rooms .settings img {
+      margin-left: 10px;
+      margin-top: 10px; }
+      main .roomsSection .settings img {
         background-color: #ff725e;
         padding: 10px;
         border-radius: 100%; }
-        main .rooms .settings img:hover {
+        main .roomsSection .settings img:hover {
           background-color: #ff5941;
           cursor: pointer; }
   main .chat {
@@ -263,5 +267,43 @@ main {
         main .users ul .user:hover {
           background-color: #ff5941;
           cursor: pointer; }
+  main .backdrop {
+    z-index: 5;
+    background-color: #263238;
+    opacity: 0.7;
+    display: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0; }
+  main .addRoomModal {
+    background-color: #ffdbc8;
+    border: 1px solid #ff725e;
+    border-radius: 40px;
+    z-index: 6;
+    position: absolute;
+    margin: auto;
+    display: none; }
+    main .addRoomModal .close {
+      position: absolute;
+      top: 0;
+      right: 16px;
+      cursor: pointer; }
+    main .addRoomModal form {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 10px; }
+      main .addRoomModal form legend {
+        font-size: 32px;
+        font-weight: 500; }
+      main .addRoomModal form fieldset {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: none; }
 
 /*# sourceMappingURL=home.css.map */
