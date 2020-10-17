@@ -91,9 +91,9 @@ def update_account():
     return (""), 404
 
 
-@users.route("/user/<username>", method=["GET"])
+@users.route("/user", method=["GET"])
 @login_required
-def get_user(username):
-    """Get user info for given username."""
-    user = User.query.filter_by(username=username).first_or_404()
-    return ""
+def get_user():
+    """Get user info for current user."""
+    user = User.query.get_or_404(current_user.id)
+    return (user), 200
