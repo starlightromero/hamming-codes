@@ -59,10 +59,10 @@ def on_join(data):
 @socketio.on("leave")
 def on_leave(data):
     """User leaves a room."""
-    # username = data["username"]
-    # room = data["room"]
-    # leave_room(room)
-    # send({"message": f"{username} has left."}, room=room)
+    username = data["username"]
+    room = data["room"]
+    leave_room(room)
+    send({"message": f"{username} has left."}, room=room)
 
 
 @main.route("/")
