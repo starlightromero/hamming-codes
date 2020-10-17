@@ -74,3 +74,26 @@ def logout():
     db.session.commit()
     logout_user()
     return redirect(url_for("users.welcome"))
+
+
+@users.route("/update", methods=["PATCH"])
+@login_required
+def update_account():
+    """Update user's account info and save to database."""
+    username = request.json.get("username")
+    email = request.json.get("email")
+    if username and email:
+        user = User.query.get_or_404(current_user.id)
+        user.username = username
+        user.email = email
+        db.session.commit()
+        return (user), 201
+    return (""), 404
+
+
+@users.route("/user/<username>", method=["GET"])
+@login_required
+def get_user(username):
+    """Get user info for given username."""
+    user = User.query.filter_by(username=username).first_or_404()
+    return ""
