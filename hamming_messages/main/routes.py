@@ -1,12 +1,26 @@
 from flask import render_template, Blueprint, request
 from flask_login import login_required, current_user
-from flask_socketio import send, join_room, leave_room
+from flask_socketio import send, join_room, leave_room, emit
 from hamming_messages import socketio, db
 from hamming_messages.models import Message, User
 
 main = Blueprint("main", __name__)
 
 ROOMS = ["lounge", "news", "games", "coding"]
+
+
+@socketio.on("userOnline")
+def user_online(data):
+    """User comes online."""
+    username = data["username"]
+    emit("userOnline", username, broadcast=True)
+
+
+@socketio.on("userOffline")
+def user_offline(data):
+    """User goes offline."""
+    username = data["username"]
+    emit("userOffline", username, broadcast=True)
 
 
 @socketio.on("message")
