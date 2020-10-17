@@ -2,7 +2,7 @@ extends base.pug
 block head
   script(type='text/javascript' src='https://unpkg.com/axios/dist/axios.min.js')
   script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js')
-  script(type='text/javascript' src='long-press-event.js')
+  script(type='text/javascript' src='{{ url_for("static", filename="js/long-press-event.min.js") }}')
   script(type='text/javascript' src='{{ url_for("static", filename="js/main.js") }}' defer)
   link(rel='stylesheet' href='{{ url_for("static", filename="css/home.css") }}')
 
