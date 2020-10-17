@@ -181,9 +181,37 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   })
 
-  document.querySelectorAll('.room').addEventListener('long-press', event => {
-    console.log(event.target.innerHTML)
-    // Delete Room
+  // DELETE ROOM
+
+  const removeRoomFromList = roomToRemove => {
+    document.querySelectorAll('.room').forEach(room => {
+      if (room.innerHTML === roomToRemove) {
+        room.remove()
+      }
+    })
+  }
+
+  document.querySelectorAll('.room').forEach(room => {
+    room.addEventListener('long-press', event => {
+      event.target.classList.add('shake')
+      async function deleteRoom () {
+        try {
+          let response = await axios({
+            method: 'DELETE',
+            url: '/room',
+            data: {
+              'name': event.target.innerHTML
+            }
+          })
+          if (response) {
+            removeRoomFromList(response.data)
+          }
+        } catch (error) {
+          console.log(error)
+        }
+      }
+      deleteRoom()
+    })
   })
 
   // MESSAGES
@@ -240,7 +268,7 @@ window.addEventListener('DOMContentLoaded', () => {
       try {
         let response = await axios({
           method: 'PUT',
-          url: '/add-room',
+          url: '/room',
           data: {
             'name': document.querySelector('.roomName').value,
             'description': document.querySelector('.roomDescription').value
