@@ -48,15 +48,38 @@ window.addEventListener('DOMContentLoaded', () => {
     socket.emit('join', {'username': sender, 'room': room})
   }
 
+  const openBackdrop = () => {
+    document.querySelector('.backdrop').style.display = 'block'
+  }
+
+  const closeBackdrop = () => {
+    document.querySelector('.backdrop').style.display = 'none'
+  }
+
   const clearAddRoomModal = () => {
     document.querySelector('.roomName').value = ''
     document.querySelector('.roomDescription').value = ''
   }
 
+  const openAddRoomModal = () => {
+    openBackdrop()
+    document.querySelector('.addRoomModal').style.display = 'block'
+  }
+
   const closeAddRoomModal = () => {
     clearAddRoomModal()
     document.querySelector('.addRoomModal').style.display = 'none'
-    document.querySelector('.backdrop').style.display = 'none'
+    closeBackdrop()
+  }
+
+  const openSettingsModal = () => {
+    openBackdrop()
+    document.querySelector('.settingsModal').style.display = 'block'
+  }
+
+  const closeSettingsModal = () => {
+    document.querySelector('.settingsModal').style.display = 'none'
+    closeBackdrop()
   }
 
   // SOCKETS
@@ -120,11 +143,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // EVENT LISTENERS
 
-  document.getElementById('settingsButton').addEventListener('click', () => {
-    socket.emit('userOffline', {'username': sender})
-    window.location.href = '/signout'
-  })
-
   newMessage.addEventListener('keyup', event => {
     if (event.keyCode === 13) {
       event.preventDefault()
@@ -147,16 +165,18 @@ window.addEventListener('DOMContentLoaded', () => {
     alert(`DM ${username}`)
   })
 
-  document.getElementById('addRoomButton').addEventListener('click', () => {
-    document.querySelector('.addRoomModal').style.display = 'block'
-    document.querySelector('.backdrop').style.display = 'block'
-  })
-
   document.querySelector('.backdrop').addEventListener('click', () => {
     closeAddRoomModal()
+    closeSettingsModal()
   })
 
-  document.querySelector('.close').addEventListener('click', () => {
+  // ADD ROOM MODAL
+
+  document.getElementById('addRoomButton').addEventListener('click', () => {
+    openAddRoomModal()
+  })
+
+  document.querySelector('.closeAddRoom').addEventListener('click', () => {
     closeAddRoomModal()
   })
 
@@ -190,5 +210,43 @@ window.addEventListener('DOMContentLoaded', () => {
       roomList = document.querySelectorAll('.room')
     }
     updateRoomList()
+  })
+
+  // SETTINGS MODAL
+
+  document.getElementById('settingsButton').addEventListener('click', () => {
+    openSettingsModal()
+  })
+
+  document.querySelector('.closeSettings').addEventListener('click', () => {
+    closeSettingsModal()
+  })
+
+  document.getElementById('signout').addEventListener('click', () => {
+    socket.emit('userOffline', {'username': sender})
+    window.location.href = '/signout'
+  })
+
+  document.querySelector('.updatedSubmit').addEventListener('click', () => {
+    event.preventDefault()
+    async function sendUpdateAccount () {
+      try {
+        let response = await axios({
+          method: 'PATCH',
+          url: '/update',
+          data: {
+            'username': document.querySelector('.updatedUsername').value,
+            'email': document.querySelector('.updatedEmail').value
+          }
+        })
+        if (response) {
+          closeSettingsModal()
+          document.getElementById('sender').innerHTML = response.data.username
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    sendUpdateAccount()
   })
 })
