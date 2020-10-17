@@ -10,7 +10,6 @@ window.addEventListener('DOMContentLoaded', () => {
   let offlineUsersList = document.getElementById('offlineUsers')
   let onlineUsers = onlineUsersList.querySelectorAll('li')
   let offlineUsers = offlineUsersList.querySelectorAll('li')
-  let roomList = document.querySelectorAll('.room')
 
   // HELPER FUNCTIONS
 
@@ -41,7 +40,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const leaveRoom = room => {
     const sender = document.getElementById('sender').innerHTML
-    socket.emit('leave', {'username': sender, 'room': room})
+    socket.emit('leave', {'username': sender, 'room': room.innerHTML})
   }
 
   const joinRoom = room => {
@@ -167,7 +166,9 @@ window.addEventListener('DOMContentLoaded', () => {
     scrollBottom()
   })
 
-  roomList.forEach(room => {
+  // CHANGE ROOM
+
+  const changeRoom = room => {
     room.onclick = () => {
       let newRoom = room.innerHTML
       if (newRoom === room) {
@@ -179,6 +180,10 @@ window.addEventListener('DOMContentLoaded', () => {
         room = newRoom
       }
     }
+  }
+
+  document.querySelectorAll('.room').forEach(room => {
+    changeRoom(room)
   })
 
   // DELETE ROOM
@@ -191,7 +196,7 @@ window.addEventListener('DOMContentLoaded', () => {
     })
   }
 
-  document.querySelectorAll('.room').forEach(room => {
+  const longPressRoomToDelete = room => {
     room.addEventListener('long-press', event => {
       event.target.classList.add('shake')
       async function deleteRoom () {
@@ -212,6 +217,10 @@ window.addEventListener('DOMContentLoaded', () => {
       }
       deleteRoom()
     })
+  }
+
+  document.querySelectorAll('.room').forEach(room => {
+    longPressRoomToDelete(room)
   })
 
   // MESSAGES
@@ -252,7 +261,7 @@ window.addEventListener('DOMContentLoaded', () => {
     closeSettingsModal()
   })
 
-  // ADD ROOM MODAL
+  // ADD ROOM
 
   document.getElementById('addRoomButton').addEventListener('click', () => {
     openAddRoomModal()
@@ -280,21 +289,20 @@ window.addEventListener('DOMContentLoaded', () => {
           const li = document.createElement('li')
           li.appendChild(document.createTextNode(response.data))
           li.classList.add('room')
+          console.log(li)
           rooms.appendChild(li)
+          changeRoom(li)
+          longPressRoomToDelete(li)
         }
       } catch (error) {
         console.log(error)
         clearAddRoomModal()
       }
     }
-    async function updateRoomList () {
-      await sendRoomRequest()
-      roomList = document.querySelectorAll('.room')
-    }
-    updateRoomList()
+    sendRoomRequest()
   })
 
-  // SETTINGS MODAL
+  // SETTINGS
 
   document.getElementById('settingsButton').addEventListener('click', () => {
     openSettingsModal()
