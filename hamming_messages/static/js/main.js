@@ -45,8 +45,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const joinRoom = room => {
     const sender = document.getElementById('sender').innerHTML
-    socket.emit('join', {'username': sender, 'room': room})
-    document.getElementById('currentRoom').innerHTML = room
+    socket.emit('join', {'username': sender, 'room': room.innerHTML})
+    document.getElementById('currentRoom').innerHTML = room.innerHTML
   }
 
   const openBackdrop = () => {
@@ -111,7 +111,7 @@ window.addEventListener('DOMContentLoaded', () => {
         })
         if (response) {
           updateSender(response.data.username)
-          joinRoom(room)
+          joinRoom(document.getElementById('currentRoom'))
         }
       } catch (error) {
         console.log(error)
@@ -124,7 +124,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   let socket = io.connect('http://127.0.0.1:5000')
 
-  joinRoom(document.getElementById('currentRoom').innerHTML)
+  joinRoom(document.getElementById('currentRoom'))
 
   socket.on('connect', () => {
     scrollBottom()
@@ -170,15 +170,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const changeRoom = room => {
     room.onclick = () => {
-      let newRoom = room.innerHTML
-      if (newRoom === room) {
-        message = `You are already in ${room} room.`
-        // printSysMsg(msg)
-      } else {
-        leaveRoom(room)
-        joinRoom(newRoom)
-        room = newRoom
-      }
+      leaveRoom(document.getElementById('currentRoom'))
+      joinRoom(room)
     }
   }
 
@@ -289,10 +282,12 @@ window.addEventListener('DOMContentLoaded', () => {
           const li = document.createElement('li')
           li.appendChild(document.createTextNode(response.data))
           li.classList.add('room')
-          console.log(li)
           rooms.appendChild(li)
           changeRoom(li)
           longPressRoomToDelete(li)
+          leaveRoom(document.getElementById('currentRoom'))
+          joinRoom(li)
+          scrollBottom()
         }
       } catch (error) {
         console.log(error)
