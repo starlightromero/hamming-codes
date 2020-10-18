@@ -314,8 +314,9 @@ main {
         justify-content: center;
         align-items: center;
         border: none; }
-    main .addRoomModal #signout, main .settingsModal #signout {
-      margin-bottom: 10px; }
+    main .addRoomModal #about, main .addRoomModal #signout, main .settingsModal #about, main .settingsModal #signout {
+      display: block;
+      margin: 0 auto 10px auto; }
   main .shake {
     animation: shake 0.1s infinite; }
 
