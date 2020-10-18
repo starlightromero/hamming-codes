@@ -53,7 +53,7 @@ def on_join(data):
     room = data["room"]
     join_room(room)
     user = User.query.filter_by(username=username).first_or_404()
-    current_room = Room.query.filter_by(name=room).first_or_404()
+    current_room = Room.query.filter_by(name=room).first()
     user.room_id = current_room.id
     db.session.commit()
     send(
@@ -81,11 +81,17 @@ def home():
     add_room_form = AddRoomForm()
     update_account_form = UpdateAccountForm()
     rooms = Room.query.all()
+    current_room = None
+    try:
+        current_room = current_user.room
+    except AttributeError:
+        current_room = Room.query.first()
     context = {
         "messages": messages,
         "users": users,
         "sender": current_user,
         "rooms": rooms,
+        "current_room": current_room.name,
         "add_room_form": add_room_form,
         "update_account_form": update_account_form,
     }
