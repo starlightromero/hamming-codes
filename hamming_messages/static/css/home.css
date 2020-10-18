@@ -199,6 +199,9 @@ main {
           text-align: left; }
         main .chat .messages ul .message {
           text-align: right; }
+      main .chat .messages .disrupted .message:hover {
+        cursor: pointer;
+        color: #455a64; }
       main .chat .messages .sentMessage {
         align-self: flex-end;
         margin-right: 30px;
