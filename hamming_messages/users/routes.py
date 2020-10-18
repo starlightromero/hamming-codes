@@ -5,7 +5,6 @@ from flask import (
     request,
     redirect,
     url_for,
-    flash,
 )
 from flask_login import current_user, login_required, login_user, logout_user
 from hamming_messages import db
@@ -34,7 +33,6 @@ def signin():
             login_user(user, remember=form.remember.data)
             db.session.commit()
             return redirect(url_for("main.home"))
-        flash("Sign in unsuccessful. Please verify email and password.")
     context = {
         "title": "Sign In",
         "form": form,
@@ -56,7 +54,6 @@ def signup():
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
-        flash("Sign up successful!")
         return redirect(url_for("main.home"))
     context = {
         "title": "Sign Up",
