@@ -1,3 +1,4 @@
+from bson import dumps
 from flask import render_template, Blueprint, request, redirect, url_for
 from flask_login import login_required, current_user
 from flask_socketio import send, join_room, leave_room, emit
@@ -123,3 +124,15 @@ def delete_room():
         db.session.commit()
         return (room.name), 200
     return (""), 404
+
+
+@main.route("/messages/<room>", methods=["GET"])
+@login_required
+def get_messages(room):
+    """Get all messages for a given room."""
+    current_room = Room.query.filter_by(name=room).first()
+    messages = Message.query.filter_by(room_id=current_room.id).all()
+    message_dict = {}
+    for message in messages:
+        message_dict.update({message.id: message.todict()})
+    return message_dict, 200
