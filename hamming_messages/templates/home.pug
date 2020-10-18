@@ -20,15 +20,7 @@ block content
         img(src='{{ url_for("static", filename="assets/settings.svg") }}' id='settingsButton')
     .chat
       .messages(id='messages')
-        if rooms
-          ul.sentMessage
-            li.sender
-            li.message
-          ul.receivedMessage
-            li.sender
-            li.message
-        else
-          h1 No Chat Rooms
+        h1 No Chat Rooms
       .send
         input(type='text' id='newMessage' placeholder="What's on your mind?")
         .sendActions
