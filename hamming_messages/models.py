@@ -46,7 +46,15 @@ class Message(db.Model):
 
     def __repr__(self):
         """Message returns sender username and room name."""
-        return f"User('{self.sender.username}', '{self.room.name}')"
+        return f"Message('{self.sender.username}', '{self.room.name}')"
+
+    def todict(self):
+        return {
+            "id": self.id,
+            "message": self.message,
+            "sender": self.sender.username,
+            "room": self.room.name,
+        }
 
 
 class Room(db.Model):
