@@ -46,6 +46,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const joinRoom = room => {
     const sender = document.getElementById('sender').innerHTML
     socket.emit('join', {'username': sender, 'room': room})
+    document.getElementById('currentRoom').innerHTML = room
   }
 
   const openBackdrop = () => {
@@ -123,8 +124,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   let socket = io.connect('http://127.0.0.1:5000')
 
-  let currentRoom = document.querySelectorAll('.room')[0].innerHTML
-  joinRoom(currentRoom)
+  joinRoom(document.getElementById('currentRoom').innerHTML)
 
   socket.on('connect', () => {
     scrollBottom()
