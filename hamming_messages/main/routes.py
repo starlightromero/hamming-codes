@@ -10,6 +10,38 @@ from hamming_messages.users.forms import UpdateAccountForm
 main = Blueprint("main", __name__)
 
 
+#                               HELPER FUNCTIONS
+
+
+def distrupt_message(message):
+    """Distrupt a given message."""
+    length = len(message)
+    rsc = RSCodec(length)
+    b = bytearray()
+    b.extend(map(ord, message))
+    b_arr = rsc.encode(b)
+    disrupted_arr = bytearray()
+    count = 0
+    for a in b_arr:
+        if count < length and count % 3 == 0:
+            a = 88
+        disrupted_arr.append(a)
+        count += 1
+    disrupted_string = disrupted_arr[0:length].decode("utf-8")
+    return (disrupted_string, disrupted_arr, length)
+
+
+def decode_message(disrupted_arr, length):
+    """Decode disrupted bytearray into string."""
+    rsc = RSCodec(length)
+    decoded_arr = rsc.decode(disrupted_arr)
+    decoded_string = decoded_arr[0].decode("utf-8")
+    return decoded_string
+
+
+#                                   SOCKETS
+
+
 @socketio.on("userOnline")
 def user_online(data):
     """User comes online."""
@@ -27,11 +59,49 @@ def user_offline(data):
 @socketio.on("disruptedMessage")
 def handle_disrupted_message(data):
     """Send disrupted message to everyone."""
-    # sender = User.query.filter_by(username=data["sender"]).first()
-    # message = Message(message=data["message"], sender_id=sender.id)
-    # db.session.add(message)
-    # db.session.commit()
-    # send(data, broadcast=True)
+    disrupted_string, disrupted_arr, length = distrupt_message(
+        data["message"]
+    )
+    sender = User.query.filter_by(username=data["sender"]).first()
+    room = Room.query.filter_by(name=data["room"]).first()
+    message = Message(
+        message=disrupted_string,
+        disrupted_arr=disrupted_arr,
+        length=length,
+        sender_id=sender.id,
+        room=room,
+    )
+    db.session.add(message)
+    db.session.commit()
+    send(
+        {
+            "message": disrupted_string,
+            "sender": sender.username,
+            "disrupted": True,
+        },
+        broadcast=True,
+    )
+
+
+@socketio.on("decodeMessage")
+def handle_decode_message(data):
+    """Decode message and send to everyone."""
+    message = Message.query.filter_by(message=data["message"]).first()
+    decoded_string = decode_message(message.disrupted_arr, message.length)
+    decoded_message = Message(
+        message=decoded_string,
+        sender=message.sender,
+        room=message.room,
+    )
+    db.session.add(decoded_message)
+    db.session.commit()
+    send(
+        {
+            "message": decoded_message.message,
+            "sender": decoded_message.sender.username,
+        },
+        broadcast=True,
+    )
 
 
 @socketio.on("message")
@@ -54,12 +124,15 @@ def on_join(data):
     join_room(room)
     user = User.query.filter_by(username=username).first_or_404()
     current_room = Room.query.filter_by(name=room).first()
-    user.room_id = current_room.id
-    db.session.commit()
-    send(
-        {"message": f"{username} has joined {room}."},
-        room=room,
-    )
+    try:
+        user.room_id = current_room.id
+        db.session.commit()
+        send(
+            {"message": f"{username} has joined {room}."},
+            room=room,
+        )
+    except AttributeError:
+        print("There are no chat rooms.")
 
 
 @socketio.on("leave")
@@ -69,6 +142,9 @@ def on_leave(data):
     room = data["room"]
     leave_room(room)
     send({"message": f"{username} has left."}, room=room)
+
+
+#                               ROUTES
 
 
 @main.route("/")
@@ -86,12 +162,17 @@ def home():
         current_room = current_user.room
     except AttributeError:
         current_room = Room.query.first()
+    current_room_name = None
+    try:
+        current_room_name = current_room.name
+    except AttributeError:
+        current_room_name = None
     context = {
         "messages": messages,
         "users": users,
         "sender": current_user,
         "rooms": rooms,
-        "current_room": current_room.name,
+        "current_room": current_room_name,
         "add_room_form": add_room_form,
         "update_account_form": update_account_form,
     }
@@ -130,8 +211,12 @@ def delete_room():
 def get_messages(room):
     """Get all messages for a given room."""
     current_room = Room.query.filter_by(name=room).first()
-    messages = Message.query.filter_by(room_id=current_room.id).all()
-    message_dict = {}
-    for message in messages:
-        message_dict.update({message.id: message.todict()})
-    return message_dict, 200
+    try:
+        messages = Message.query.filter_by(room_id=current_room.id).all()
+        message_dict = {}
+        for message in messages:
+            message_dict.update({message.id: message.todict()})
+        return message_dict, 200
+    except AttributeError:
+        print("There are no messages.")
+        return "", 200
