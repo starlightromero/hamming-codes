@@ -1,0 +1,14 @@
+extends base.pug
+block head
+  script(type='text/javascript' src='{{ url_for("static", filename="js/error.js") }}' defer)
+  link(rel='stylesheet' href='{{ url_for("static", filename="css/error.css") }}')
+
+block content
+  main
+    .back
+      img(src='{{ url_for("static", filename="assets/back.svg") }}' id='backButton')
+    .error
+      h1 Oops... this is an error we aren't able to decode.
+    .image
+      img(src='{{ url_for("static", filename="assets/telecommuting.svg") }}')
+      figcaption #[a(href='https://www.freepik.com/vectors/people') People vector created by stories - www.freepik.com]
