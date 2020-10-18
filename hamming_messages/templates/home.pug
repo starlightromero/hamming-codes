@@ -21,16 +21,12 @@ block content
     .chat
       .messages(id='messages')
         if rooms
-          each message in messages
-            if message.room.name == current_room.name
-              if message.sender.username == sender.username
-                ul.sentMessage
-                  li.sender= message.sender.username
-                  li.message= message.message
-              else
-                ul.receivedMessage
-                  li.sender= message.sender.username
-                  li.message= message.message
+          ul.sentMessage
+            li.sender
+            li.message
+          ul.receivedMessage
+            li.sender
+            li.message
         else
           h1 No Chat Rooms
       .send
