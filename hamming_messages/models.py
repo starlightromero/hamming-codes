@@ -51,11 +51,15 @@ class Message(db.Model):
         return f"Message('{self.sender.username}', '{self.room.name}')"
 
     def todict(self):
+        disrupted = False
+        if self.disrupted_arr:
+            disrupted = True
         return {
             "id": self.id,
             "message": self.message,
             "sender": self.sender.username,
             "room": self.room.name,
+            "disrupted": disrupted,
         }
 
 
