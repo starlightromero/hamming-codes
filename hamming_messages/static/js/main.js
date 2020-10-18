@@ -11,11 +11,13 @@ window.addEventListener('DOMContentLoaded', () => {
   let onlineUsers = onlineUsersList.querySelectorAll('li')
   let offlineUsers = offlineUsersList.querySelectorAll('li')
 
-  // HELPER FUNCTIONS
+  // SCROLL TO BOTTOM
 
   const scrollBottom = () => {
     messages.scrollTop = messages.scrollHeight
   }
+
+  // CHECK USERS ONLINE OR OFFLINE
 
   const userOnline = username => {
     for (user of offlineUsers) {
@@ -37,6 +39,18 @@ window.addEventListener('DOMContentLoaded', () => {
       }
     }
   }
+
+  // DISRUPTED LISTENER
+
+  const addDistruptedListener = message => {
+    messageText = message.querySelector('.message')
+    messageText.addEventListener('click', event => {
+      console.log(event.target.innerHTML)
+      socket.emit('decodeMessage', {'message': event.target.innerHTML})
+    })
+  }
+
+  // UPDATE MESSAGES ON ROOM CHANGE
 
   const removeMessages = list => {
     while (list.firstChild) {
@@ -67,7 +81,7 @@ window.addEventListener('DOMContentLoaded', () => {
         ul.classList.add('receivedMessage')
       }
 
-      if (message[message][disrupted_arr]) {
+      if (messages[message]['disrupted']) {
         ul.classList.add('disrupted')
       }
 
@@ -84,6 +98,9 @@ window.addEventListener('DOMContentLoaded', () => {
         })
         if (response) {
           updateMessages(response.data)
+          document.querySelectorAll('.disrupted').forEach(message => {
+            addDistruptedListener(message)
+          })
         }
       } catch (error) {
         console.log(error)
@@ -91,6 +108,8 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     getMessagesRequest()
   }
+
+  // LEAVE AND JOIN ROOM
 
   const leaveRoom = room => {
     const sender = document.getElementById('sender').innerHTML
@@ -104,6 +123,8 @@ window.addEventListener('DOMContentLoaded', () => {
     getMessages(room)
     scrollBottom()
   }
+
+  // MODAL HELPER FUNCTIONS
 
   const openBackdrop = () => {
     document.querySelector('.backdrop').style.display = 'block'
@@ -138,6 +159,8 @@ window.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.settingsModal').style.display = 'none'
     closeBackdrop()
   }
+
+  // UPDATE SENDER
 
   const updatePastMessages = (oldSender, newSender) => {
     const sentMessages = document.querySelectorAll('.sentMessage')
@@ -180,7 +203,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
   let socket = io.connect('http://127.0.0.1:5000')
 
-  joinRoom(document.getElementById('currentRoom'))
+  if (document.getElementById('currentRoom').innerHTML !== 'None') {
+    joinRoom(document.getElementById('currentRoom'))
+  }
 
   socket.on('connect', () => {
     scrollBottom()
@@ -209,6 +234,10 @@ window.addEventListener('DOMContentLoaded', () => {
       messageli.classList.add('message')
       ul.appendChild(senderli)
       ul.appendChild(messageli)
+      if (data['disrupted']) {
+        ul.classList.add('disrupted')
+        addDistruptedListener(ul)
+      }
       messages.appendChild(ul)
     } else if (data['message']) {
       const p = document.createElement('p')
@@ -291,10 +320,22 @@ window.addEventListener('DOMContentLoaded', () => {
     newMessage.value = ''
   })
 
+  // DISRUPTED MESSAGES
+
   document.getElementById('disruptedSendButton').addEventListener('click', () => {
     const sender = document.getElementById('sender').innerHTML
-    socket.send({'message': newMessage.value, 'sender': sender})
-    newMessage.value = ''
+    if (newMessage.value.length > 1) {
+      socket.emit('disruptedMessage',
+        {
+          'message': newMessage.value,
+          'sender': sender,
+          'room': document.getElementById('currentRoom').innerHTML
+        }
+      )
+      newMessage.value = ''
+    } else {
+      // Print message to user "Message has to be longer than 1 character"
+    }
   })
 
   // USERS LISTS
