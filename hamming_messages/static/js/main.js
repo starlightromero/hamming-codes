@@ -271,11 +271,9 @@ window.addEventListener('DOMContentLoaded', () => {
   // MESSAGES
 
   newMessage.addEventListener('keypress', event => {
-    // console.log(event.keyCode)
-    //
-    //
-    //
-    if (event.keyCode === 13) {
+    if (event.keyCode === 13 && event.shiftKey) {
+      document.getElementById('disruptedSendButton').click()
+    } else if (event.keyCode === 13) {
       event.preventDefault()
       sendButton.click()
     }
