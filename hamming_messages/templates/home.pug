@@ -20,21 +20,26 @@ block content
         img(src='{{ url_for("static", filename="assets/settings.svg") }}' id='settingsButton')
     .chat
       .messages(id='messages')
-        each message in messages
-          if message.sender.username == sender.username
-            ul.sentMessage
-              li.sender= message.sender.username
-              li.message= message.message
-          else
-            ul.receivedMessage
-              li.sender= message.sender.username
-              li.message= message.message
+        if rooms
+          each message in messages
+            if message.room.name == current_room.name
+              if message.sender.username == sender.username
+                ul.sentMessage
+                  li.sender= message.sender.username
+                  li.message= message.message
+              else
+                ul.receivedMessage
+                  li.sender= message.sender.username
+                  li.message= message.message
+        else
+          h1 No Chat Rooms
       .send
         input(type='text' id='newMessage' placeholder="What's on your mind?")
         .sendActions
           button(type='button' id='disruptedSendButton') Send Disruption
           button(type='submit' id='sendButton') Send
         span(id='sender') #{sender.username}
+        span(id='currentRoom') #{current_room}
     .users
       h4 Online Users
       ul(id='onlineUsers')
