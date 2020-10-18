@@ -270,7 +270,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // MESSAGES
 
-  newMessage.addEventListener('keyup', event => {
+  newMessage.addEventListener('keypress', event => {
+    // console.log(event.keyCode)
+    //
+    //
+    //
     if (event.keyCode === 13) {
       event.preventDefault()
       sendButton.click()
@@ -279,7 +283,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
   sendButton.addEventListener('click', () => {
     const sender = document.getElementById('sender').innerHTML
-    socket.send({'message': newMessage.value, 'sender': sender})
+    if (newMessage.value) {
+      socket.send({'message': newMessage.value, 'sender': sender})
+    }
     newMessage.value = ''
   })
 
