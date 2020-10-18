@@ -43,6 +43,8 @@ class Message(db.Model):
     date = db.Column(db.DateTime, default=datetime.utcnow)
     sender_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     room_id = db.Column(db.Integer, db.ForeignKey("room.id"))
+    disrupted_arr = db.Column(db.BigInteger)
+    length = db.Column(db.Integer)
 
     def __repr__(self):
         """Message returns sender username and room name."""
