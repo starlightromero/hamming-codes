@@ -410,6 +410,12 @@ window.addEventListener('DOMContentLoaded', () => {
     sendRoomRequest()
   })
 
+  // ABOUT
+
+  document.getElementById('about').addEventListener('click', () => {
+    window.location.href = '/about'
+  })
+
   // SETTINGS
 
   document.getElementById('settingsButton').addEventListener('click', () => {
