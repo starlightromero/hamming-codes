@@ -38,6 +38,56 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  const removeMessages = list => {
+    while (list.firstChild) {
+      list.removeChild(list.firstChild)
+    }
+  }
+
+  const updateMessages = messages => {
+    const sender = document.getElementById('sender').innerHTML
+    const messageList = document.getElementById('messages')
+
+    removeMessages(messageList)
+
+    for (message in messages) {
+      messageSender = document.createElement('li')
+      messageText = document.createElement('li')
+      messageSender.appendChild(document.createTextNode(messages[message]['sender']))
+      messageText.appendChild(document.createTextNode(messages[message]['message']))
+      messageSender.classList.add('sender')
+      messageText.classList.add('message')
+      ul = document.createElement('ul')
+      ul.appendChild(messageSender)
+      ul.appendChild(messageText)
+
+      if (messages[message]['sender'] === sender) {
+        ul.classList.add('sentMessage')
+      } else {
+        ul.classList.add('receivedMessage')
+      }
+
+      messageList.appendChild(ul)
+    }
+  }
+
+  const getMessages = room => {
+    async function getMessagesRequest () {
+      try {
+        let response = await axios({
+          method: 'GET',
+          url: '/messages/' + room.innerHTML
+        })
+        if (response) {
+          updateMessages(response.data)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getMessagesRequest()
+  }
+
   const leaveRoom = room => {
     const sender = document.getElementById('sender').innerHTML
     socket.emit('leave', {'username': sender, 'room': room.innerHTML})
@@ -47,6 +97,8 @@ window.addEventListener('DOMContentLoaded', () => {
     const sender = document.getElementById('sender').innerHTML
     socket.emit('join', {'username': sender, 'room': room.innerHTML})
     document.getElementById('currentRoom').innerHTML = room.innerHTML
+    getMessages(room)
+    scrollBottom()
   }
 
   const openBackdrop = () => {
@@ -287,7 +339,6 @@ window.addEventListener('DOMContentLoaded', () => {
           longPressRoomToDelete(li)
           leaveRoom(document.getElementById('currentRoom'))
           joinRoom(li)
-          scrollBottom()
         }
       } catch (error) {
         console.log(error)
