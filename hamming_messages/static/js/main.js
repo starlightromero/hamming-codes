@@ -67,6 +67,10 @@ window.addEventListener('DOMContentLoaded', () => {
         ul.classList.add('receivedMessage')
       }
 
+      if (message[message][disrupted_arr]) {
+        ul.classList.add('disrupted')
+      }
+
       messageList.appendChild(ul)
     }
   }
