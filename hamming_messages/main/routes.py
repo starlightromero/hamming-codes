@@ -83,25 +83,25 @@ def handle_disrupted_message(data):
     )
 
 
-@socketio.on("decodeMessage")
-def handle_decode_message(data):
-    """Decode message and send to everyone."""
-    message = Message.query.filter_by(message=data["message"]).first()
-    decoded_string = decode_message(message.disrupted_arr, message.length)
-    decoded_message = Message(
-        message=decoded_string,
-        sender=message.sender,
-        room=message.room,
-    )
-    db.session.add(decoded_message)
-    db.session.commit()
-    send(
-        {
-            "message": decoded_message.message,
-            "sender": decoded_message.sender.username,
-        },
-        broadcast=True,
-    )
+# @socketio.on("decodeMessage")
+# def handle_decode_message(data):
+#     """Decode message and send to everyone."""
+#     message = Message.query.filter_by(message=data["message"]).first()
+#     decoded_string = decode_message(message.disrupted_arr, message.length)
+#     decoded_message = Message(
+#         message=decoded_string,
+#         sender=message.sender,
+#         room=message.room,
+#     )
+#     db.session.add(decoded_message)
+#     db.session.commit()
+#     send(
+#         {
+#             "message": decoded_message.message,
+#             "sender": decoded_message.sender.username,
+#         },
+#         broadcast=True,
+#     )
 
 
 @socketio.on("message")
@@ -206,7 +206,7 @@ def delete_room():
     return (""), 404
 
 
-@main.route("/messages/<room>", methods=["GET"])
+@main.route("/<room>/messages", methods=["GET"])
 @login_required
 def get_messages(room):
     """Get all messages for a given room."""
@@ -220,3 +220,11 @@ def get_messages(room):
     except AttributeError:
         print("There are no messages.")
         return "", 200
+
+
+@main.route("/messages/<distupted_message>", methods=["GET"])
+def handle_decode_message(distupted_message):
+    """Decode given message."""
+    message = Message.query.filter_by(message=distupted_message).first()
+    decoded_string = decode_message(message.disrupted_arr, message.length)
+    return decoded_string, 200

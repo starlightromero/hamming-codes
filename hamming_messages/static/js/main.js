@@ -46,7 +46,20 @@ window.addEventListener('DOMContentLoaded', () => {
     messageText = message.querySelector('.message')
     messageText.addEventListener('click', event => {
       console.log(event.target.innerHTML)
-      socket.emit('decodeMessage', {'message': event.target.innerHTML})
+      async function getDecodedMessage () {
+        try {
+          let response = await axios({
+            method: 'GET',
+            url: '/messages/' + event.target.innerHTML
+          })
+          if (response) {
+            event.target.innerHTML = response.data
+          }
+        } catch (error) {
+          console.log(error)
+        }
+      }
+      getDecodedMessage()
     })
   }
 
@@ -94,7 +107,7 @@ window.addEventListener('DOMContentLoaded', () => {
       try {
         let response = await axios({
           method: 'GET',
-          url: '/messages/' + room.innerHTML
+          url: '/' + room.innerHTML + '/messages'
         })
         if (response) {
           updateMessages(response.data)
