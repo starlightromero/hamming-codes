@@ -252,6 +252,9 @@ window.addEventListener('DOMContentLoaded', () => {
         addDistruptedListener(ul)
       }
       messages.appendChild(ul)
+      if (ul.previousElementSibling.tagName === 'P') {
+        ul.previousElementSibling.remove()
+      }
     } else if (data['message']) {
       const p = document.createElement('p')
       p.appendChild(document.createTextNode(data['message']))
