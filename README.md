@@ -53,6 +53,14 @@ The car is the version of an app which most people see when they first imagine t
 
 ## Mock-ups
 
+<object data="/design/mockups/welcome.pdf" type="application/pdf" width="700px" height="700px">
+    <embed src="/design/mockups/welcome.pdf">
+        <p>This browser does not support PDFs.</p>
+    </embed>
+</object>
+
+Made with Figma. [See more](https://www.figma.com/file/01OxuSXerWe36U8HUM0os9/Hamming-Messages?node-id=15%3A1135).
+
 ## Technologies
 
 <p align="left">
