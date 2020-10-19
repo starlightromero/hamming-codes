@@ -1,7 +1,10 @@
+"""Import libraries."""
 from datetime import datetime
+from flask import url_for
 from flask_login import UserMixin
 from passlib.hash import sha256_crypt
-from hamming_messages import db, login_manager
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+from hamming_messages import db, login_manager, current_app
 
 
 @login_manager.user_loader
@@ -33,6 +36,34 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         """Check if given password matches hashed password."""
         return sha256_crypt.verify(password, self.password)
+
+    def get_reset_token(self, expires_sec=900):
+        """Generate user token to reset password."""
+        s = Serializer(current_app.config["SECRET_KEY"], expires_sec)
+        return s.dumps({"user_id": self.id}).decode("utf-8")
+
+    def send_reset_email(self):
+        """Send password reset email."""
+        token = self.get_reset_token()
+        msg = Message(
+            "Password Reset Request",
+            recipients=[self.email],
+        )
+        msg.body = f"""To reset your password, visit the following link:
+    {url_for('users.reset_token', token=token, _external=True)}
+    If you did not make this request, please ignore this email.
+    """
+        mail.send(msg)
+
+    @staticmethod
+    def verify_reset_token(token):
+        """Verify given token."""
+        s = Serializer(current_app.config["SECRET_KEY"])
+        try:
+            user_id = s.loads(token)["user_id"]
+        except ValueError:
+            return None
+        return User.query.get(user_id)
 
 
 class Message(db.Model):
