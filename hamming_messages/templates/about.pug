@@ -1,0 +1,19 @@
+extends base.pug
+block head
+  script(type='text/javascript' src='{{ url_for("static", filename="js/back.js") }}' defer)
+  link(rel='stylesheet' href='{{ url_for("static", filename="css/about.css") }}')
+
+block content
+  main
+    .back
+      img(src='{{ url_for("static", filename="assets/back.svg") }}' id='backButton')
+    .about
+      h1 Hamming Messages
+      p 
+        | Hamming Messages utilizes error-correction codes to decode disrupted messages. Error-correcting was forever changed when Richard Hamming developed his algorithm in 1950 while working at Bell Labs. Error-correction was then futher advanced in 1960 by Irving S. Reed and Gustave Solomon.
+        | Hamming codes are capable of detecting up to two error bits, but are only able to correct one-bit errors. However, Reed-Solomon codes can detect and correct multiple errors in a given chunk. These are the codes used in Hamming messages for error correction. 
+      p The goal of Hamming Messages is to expose others to error correction and its vital place in today's technology, through a fun and approachable interface.
+      p Error-correction is a core technology that is used in CDs, DVDs, HDDs, and SSDs.
+    .image
+      img(src='{{ url_for("static", filename="assets/phone.svg") }}')
+      figcaption #[a(href='https://www.freepik.com/vectors/people') People vector created by stories - www.freepik.com]
