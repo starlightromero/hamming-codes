@@ -4,9 +4,11 @@ from flask_cors import CORS
 from flask_socketio import SocketIO
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
+from flask_mail import Mail
 from hamming_messages.config import Config
 
 cors = CORS()
+mail = Mail()
 db = SQLAlchemy()
 socketio = SocketIO()
 login_manager = LoginManager()
@@ -22,6 +24,7 @@ def create_app(config_class=Config):
 
     db.init_app(app)
     cors.init_app(app)
+    mail.init_app(app)
     login_manager.init_app(app)
     socketio.init_app(app, cors_allowed_origins="*")
 

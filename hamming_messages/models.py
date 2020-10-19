@@ -4,7 +4,7 @@ from flask import url_for
 from flask_login import UserMixin
 from passlib.hash import sha256_crypt
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-from hamming_messages import db, login_manager, current_app
+from hamming_messages import db, login_manager, current_app, mail
 
 
 @login_manager.user_loader
