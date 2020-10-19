@@ -253,7 +253,10 @@ main {
     align-items: center;
     border-left: 2px solid #ff725e;
     height: 100%;
-    flex-basis: 15%; }
+    flex-basis: 15%;
+    overflow-y: scroll; }
+    main .users::-webkit-scrollbar {
+      display: none; }
     main .users h4 {
       color: #ff725e; }
     main .users ul {
