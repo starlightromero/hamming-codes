@@ -381,6 +381,19 @@ window.addEventListener('DOMContentLoaded', () => {
     closeAddRoomModal()
   })
 
+  const addNewRoom = (room) => {
+    const rooms = document.querySelector('.rooms')
+    const li = document.createElement('li')
+    li.appendChild(document.createTextNode(room))
+    li.classList.add('room')
+    rooms.appendChild(li)
+    longPressRoomToDelete(li)
+  }
+
+  socket.on('addNewRoom', room => {
+    addNewRoom(room)
+  })
+
   document.querySelector('.addRoomFormSubmit').addEventListener('click', event => {
     event.preventDefault()
     async function sendRoomRequest () {
@@ -395,13 +408,8 @@ window.addEventListener('DOMContentLoaded', () => {
         })
         if (response) {
           closeAddRoomModal()
-          const rooms = document.querySelector('.rooms')
-          const li = document.createElement('li')
-          li.appendChild(document.createTextNode(response.data))
-          li.classList.add('room')
-          rooms.appendChild(li)
+          socket.emit('addNewRoom', {'room': response.data})
           changeRoom(li)
-          longPressRoomToDelete(li)
           leaveRoom(document.getElementById('currentRoom'))
           joinRoom(li)
         }

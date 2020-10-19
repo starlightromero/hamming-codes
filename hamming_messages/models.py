@@ -85,6 +85,7 @@ class Message(db.Model):
         return f"Message('{self.sender.username}', '{self.room.name}')"
 
     def todict(self):
+        """Turn room into dictionary."""
         disrupted = False
         if self.disrupted_arr:
             disrupted = True
