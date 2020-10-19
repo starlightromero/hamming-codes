@@ -9,6 +9,12 @@ The goal of Hamming Messages is to expose others to error correction and its vit
 
 Error-correction is a core technology that is used in CDs, DVDs, HDDs, and SSDs.
 
+### Live Link
+
+[Hamming Messages](https://hamming-messages.herokuapp.com)
+
+Please note websockets are not fully functioning.
+
 ## User Journeys
 
 User journeys are a tool product developers use to outline how users will find and interact with the app.
