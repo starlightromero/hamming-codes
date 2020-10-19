@@ -13,7 +13,6 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     MAIL_SERVER = os.getenv("MAIL_SERVER")
     MAIL_PORT = os.getenv("MAIL_PORT")
-    MAIL_USE_TTL = True
     MAIL_USE_SSL = True
     MAIL_DEBUG = True
     MAIL_USERNAME = os.getenv("MAIL_USERNAME")
