@@ -1,2 +1,27 @@
 extends base.pug
+block head
+  script(type='text/javascript' src='{{ url_for("static", filename="js/backSignin.js") }}' defer)
+  link(rel='stylesheet' href='{{ url_for("static", filename="css/password.css") }}')
+
 block content
+  main
+    .back
+      img(src='{{ url_for("static", filename="assets/back.svg") }}' id='backButton')
+    .passwordForm
+      form(method="POST")
+        | {{ form.hidden_tag() }}
+        fieldset
+          legend Reset Password
+          | {{ form.password.label }}
+          if form.password.errors
+            | {{ form.password(class='is-invalid', placeholder='Enter a new password', minlength='8') }}
+            .invalid-feedback
+              each error in form.password.errors
+                p= error
+          else
+            | {{ form.password(placeholder='Enter a new password', minlength='8') }}
+        .submit
+          | {{ form.submit }}
+    .image
+      img(src='{{ url_for("static", filename="assets/phone.svg") }}')
+      figcaption #[a(href='https://www.freepik.com/vectors/people') People vector created by stories - www.freepik.com]

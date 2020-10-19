@@ -1,4 +1,8 @@
 extends base.pug
+block head
+  script(type='text/javascript' src='{{ url_for("static", filename="js/backSignin.js") }}' defer)
+  link(rel='stylesheet' href='{{ url_for("static", filename="css/password.css") }}')
+
 block content
   | {% with messages = get_flashed_messages() %}
   | {% if messages %}
@@ -7,3 +11,24 @@ block content
   | {% endfor %}
   | {% endif %}
   | {% endwith %}
+  main
+    .back
+      img(src='{{ url_for("static", filename="assets/back.svg") }}' id='backButton')
+    .passwordForm
+      form(method="POST")
+        | {{ form.hidden_tag() }}
+        fieldset
+          legend Request Password Reset
+          | {{ form.email.label }}
+          if form.email.errors
+            | {{ form.email(class='is-invalid', placeholder='name@address.com') }}
+            .invalid-feedback
+              each error in form.email.errors
+                p= error
+          else
+            | {{ form.email(placeholder='name@address.com') }}
+        .submit
+          | {{ form.submit }}
+    .image
+      img(src='{{ url_for("static", filename="assets/beanbag.svg") }}')
+      figcaption #[a(href='https://www.freepik.com/vectors/people') People vector created by stories - www.freepik.com]
