@@ -44,22 +44,30 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const addDistruptedListener = message => {
     messageText = message.querySelector('.message')
+    let decoded = false
+    let originalMessage = ''
     messageText.addEventListener('click', event => {
-      console.log(event.target.innerHTML)
-      async function getDecodedMessage () {
-        try {
-          let response = await axios({
-            method: 'GET',
-            url: '/messages/' + event.target.innerHTML
-          })
-          if (response) {
-            event.target.innerHTML = response.data
+      if (!decoded) {
+        async function getDecodedMessage () {
+          try {
+            let response = await axios({
+              method: 'GET',
+              url: '/messages/' + event.target.innerHTML
+            })
+            if (response) {
+              originalMessage = event.target.innerHTML
+              event.target.innerHTML = response.data
+              decoded = true
+            }
+          } catch (error) {
+            console.log(error)
           }
-        } catch (error) {
-          console.log(error)
         }
+        getDecodedMessage()
+      } else {
+        event.target.innerHTML = originalMessage
+        decoded = false
       }
-      getDecodedMessage()
     })
   }
 
