@@ -83,27 +83,6 @@ def handle_disrupted_message(data):
     )
 
 
-# @socketio.on("decodeMessage")
-# def handle_decode_message(data):
-#     """Decode message and send to everyone."""
-#     message = Message.query.filter_by(message=data["message"]).first()
-#     decoded_string = decode_message(message.disrupted_arr, message.length)
-#     decoded_message = Message(
-#         message=decoded_string,
-#         sender=message.sender,
-#         room=message.room,
-#     )
-#     db.session.add(decoded_message)
-#     db.session.commit()
-#     send(
-#         {
-#             "message": decoded_message.message,
-#             "sender": decoded_message.sender.username,
-#         },
-#         broadcast=True,
-#     )
-
-
 @socketio.on("message")
 def handle_message(data):
     """Send message to everyone."""
@@ -228,3 +207,9 @@ def handle_decode_message(distupted_message):
     message = Message.query.filter_by(message=distupted_message).first()
     decoded_string = decode_message(message.disrupted_arr, message.length)
     return decoded_string, 200
+
+
+@main.route("/about")
+def about():
+    """Render about page."""
+    return render_template("about.pug")
