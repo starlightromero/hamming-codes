@@ -1,3 +1,4 @@
+"""Import libraries."""
 from flask import render_template, Blueprint, request, redirect, url_for
 from flask_login import login_required, current_user
 from flask_socketio import send, join_room, leave_room, emit
@@ -44,7 +45,7 @@ def decode_message(disrupted_arr, length):
 
 @socketio.on("addNewRoom")
 def add_new_room(data):
-    """New room added."""
+    """Add new room."""
     room = data["room"]
     emit("addNewRoom", room, broadcast=True)
 
