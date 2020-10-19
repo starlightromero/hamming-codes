@@ -9,11 +9,57 @@ The goal of Hamming Messages is to expose others to error correction and its vit
 
 Error-correction is a core technology that is used in CDs, DVDs, HDDs, and SSDs.
 
-### Live Link
+## Live Link
 
 [Hamming Messages](https://hamming-messages.herokuapp.com)
 
-Please note websockets are not fully functioning.
+Please note websockets are not fully functioning on live link.
+
+## Installation
+
+Clone the repository
+```zsh
+git clone git@github.com:starlightromero/hamming-messages.git
+````
+
+Change into the new directory
+```zsh
+cd hamming-messages
+```
+
+Create a folder called env that will hold all installed packages
+```zsh
+python3 -m venv env
+```
+
+Activate your virtual environment
+```zsh
+source env/bin/activate
+```
+
+Install all packages listed in the requirements
+```zsh
+pip3 install -r requirements.txt
+```
+
+Reactivate your virtual environment with the newly installed packages
+```zsh
+source env/bin/activate
+```
+
+Export environment variables
+```zsh
+export SQLALCHEMY_DATABASE_URI=sqlite:///database.db && export SECRET_KEY=hello
+```
+
+Run the app
+```zsh
+python3 app.py
+```
+
+**Navigate in your browser to localhost:5000**
+
+Please note that with this setup, password reset will not work.
 
 ## User Journeys
 
