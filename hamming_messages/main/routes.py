@@ -50,6 +50,13 @@ def add_new_room(data):
     emit("addNewRoom", room, broadcast=True)
 
 
+@socketio.on("deleteRoom")
+def delete_room(data):
+    """Delete room."""
+    room = data["room"]
+    emit("deleteRoom", room, broadcast=True)
+
+
 @socketio.on("userOnline")
 def user_online(data):
     """User comes online."""
@@ -164,20 +171,6 @@ def home():
         "update_account_form": update_account_form,
     }
     return render_template("home.pug", **context)
-
-
-# @main.route("/rooms", methods=["GET"])
-# @login_required
-# def get_rooms():
-#     try:
-#         rooms = Room.query.all()
-#         room_dict = {}
-#         for room in rooms:
-#             room_dict.update({room.id: room.name})
-#         return room_dict, 200
-#     except AttributeError:
-#         print("There are no rooms.")
-#         return "", 200
 
 
 @main.route("/room", methods=["PUT"])

@@ -260,8 +260,12 @@ window.addEventListener('DOMContentLoaded', () => {
         addDistruptedListener(ul)
       }
       messages.appendChild(ul)
-      while (ul.previousElementSibling.tagName === 'P') {
-        ul.previousElementSibling.remove()
+      try {
+        while (ul.previousElementSibling.tagName === 'P') {
+          ul.previousElementSibling.remove()
+        }
+      } catch {
+        console.log('All p elements removed.')
       }
     } else if (data['message']) {
       const p = document.createElement('p')
@@ -311,7 +315,7 @@ window.addEventListener('DOMContentLoaded', () => {
             }
           })
           if (response) {
-            removeRoomFromList(response.data)
+            socket.emit('deleteRoom', {'room': response.data})
           }
         } catch (error) {
           console.log(error)
@@ -323,6 +327,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('.room').forEach(room => {
     longPressRoomToDelete(room)
+  })
+
+  socket.on('deleteRoom', room => {
+    removeRoomFromList(room)
+    joinRoom(document.querySelector('.room'))
   })
 
   // MESSAGES
@@ -420,7 +429,7 @@ window.addEventListener('DOMContentLoaded', () => {
           closeAddRoomModal()
           socket.emit('addNewRoom', {'room': response.data})
           leaveRoom(document.getElementById('currentRoom'))
-          joinRoom(li)
+          joinRoom(response.data)
         }
       } catch (error) {
         console.log(error)
