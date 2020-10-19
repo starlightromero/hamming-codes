@@ -1,3 +1,4 @@
+"""Import libraries."""
 from flask_login import current_user
 from flask_wtf import FlaskForm
 from wtforms.validators import DataRequired, Length, Email, ValidationError
@@ -6,7 +7,6 @@ from wtforms.fields import (
     PasswordField,
     SubmitField,
     BooleanField,
-    EmailField,
 )
 from hamming_messages.models import User
 
@@ -17,7 +17,7 @@ class SignupForm(FlaskForm):
     username = StringField(
         "Username", validators=[DataRequired(), Length(min=2, max=20)]
     )
-    email = EmailField("Email Address", validators=[DataRequired(), Email()])
+    email = StringField("Email Address", validators=[DataRequired(), Email()])
     password = PasswordField(
         "Password", validators=[DataRequired(), Length(min=8, max=20)]
     )
@@ -47,7 +47,7 @@ class SignupForm(FlaskForm):
 class SigninForm(FlaskForm):
     """User signin form."""
 
-    email = EmailField("Email Address", validators=[DataRequired(), Email()])
+    email = StringField("Email Address", validators=[DataRequired(), Email()])
     password = PasswordField(
         "Password", validators=[DataRequired(), Length(min=8, max=20)]
     )
@@ -61,7 +61,7 @@ class UpdateAccountForm(FlaskForm):
     username = StringField(
         "Username", validators=[DataRequired(), Length(min=2, max=20)]
     )
-    email = EmailField("Email Address", validators=[DataRequired(), Email()])
+    email = StringField("Email Address", validators=[DataRequired(), Email()])
     submit = SubmitField("Update")
 
     def validate_username(self, username):
