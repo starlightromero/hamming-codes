@@ -48,20 +48,20 @@ block content
           legend Add Chat Room
           | {{ add_room_form.name.label }}
           if add_room_form.name.errors
-            | {{ add_room_form.name(class='is-invalid roomName') }}
+            | {{ add_room_form.name(class='is-invalid roomName', placeholder='Room Name') }}
             .invalid-feedback
               each error in add_room_form.name.errors
                 p= error
           else
-            | {{ add_room_form.name(class='roomName') }}
+            | {{ add_room_form.name(class='roomName', placeholder='Room Name') }}
           | {{ add_room_form.description.label }}
           if add_room_form.description.errors
-            | {{ add_room_form.description(class='is-invalid roomDescription') }}
+            | {{ add_room_form.description(class='is-invalid roomDescription', placeholder='Room Description') }}
             .invalid-feedback
               each error in add_room_form.description.errors
                 p= error
           else
-            | {{ add_room_form.description(class='roomDescription')}}
+            | {{ add_room_form.description(class='roomDescription', placeholder='Room Description')}}
         .submit
           | {{ add_room_form.submit(class="addRoomFormSubmit") }}
     .settingsModal
