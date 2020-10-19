@@ -71,8 +71,10 @@ html {
       font-weight: 400; }
     html body figcaption {
       font-size: 8px; }
-      html body figcaption a {
-        color: #ff725e; }
+    html body a {
+      color: #ff725e; }
+      html body a:hover {
+        color: #ff5941; }
     html body input[type=text], html body input[type=email], html body input[type=password] {
       background-color: #ffdbc8;
       border: 1px solid #263238;
@@ -107,6 +109,19 @@ main {
   justify-content: center;
   align-items: center;
   background-color: #ffdbc8; }
+  main .back {
+    position: absolute;
+    top: 10px;
+    left: 10px; }
+    main .back img {
+      background-color: #ff725e;
+      border-radius: 100%;
+      width: 36px;
+      height: 36px;
+      padding: 5px;
+      cursor: pointer; }
+      main .back img:hover {
+        background-color: #ff5941; }
   main .signin, main .signup {
     flex-basis: 50%;
     width: 100%;
