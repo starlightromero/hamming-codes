@@ -17,6 +17,8 @@ users = Blueprint("users", __name__)
 @users.route("/welcome")
 def welcome():
     """Render welcome page."""
+    if current_user.is_authenticated:
+        redirect(url_for("main.home"))
     return render_template("welcome.pug")
 
 
