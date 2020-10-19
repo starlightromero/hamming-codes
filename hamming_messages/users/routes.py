@@ -5,11 +5,17 @@ from flask import (
     request,
     redirect,
     url_for,
+    flash,
 )
 from flask_login import current_user, login_required, login_user, logout_user
 from hamming_messages import db
 from hamming_messages.models import User
-from hamming_messages.users.forms import SigninForm, SignupForm
+from hamming_messages.users.forms import (
+    SigninForm,
+    SignupForm,
+    RequestResetForm,
+    ResetPasswordForm,
+)
 
 users = Blueprint("users", __name__)
 
@@ -98,3 +104,37 @@ def get_user():
     return (
         {"id": user.id, "username": user.username, "email": user.email}
     ), 200
+
+
+@users.route("/reset_password", methods=["GET", "POST"])
+def reset_request():
+    """Show route for requesting user password reset."""
+    if current_user.is_authenticated:
+        redirect(url_for("main.home"))
+    form = RequestResetForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        user.send_reset_email()
+        flash("An email has been sent to reset your password.")
+        return redirect(url_for("users.signin"))
+    context = {"form": form}
+    return render_template("reset_request.pug", **context)
+
+
+@users.route("/reset_password/<token>", methods=["GET", "POST"])
+def reset_token(token):
+    """Show route for resetting user password."""
+    if current_user.is_authenticated:
+        redirect(url_for("main.home"))
+    user = User.verify_reset_token(token)
+    if user is None:
+        flash("The token is invalid or expired.")
+        return redirect(url_for("users.reset_request"))
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        user.set_password(form.password.data)
+        db.session.commit()
+        flash("Your password has been updated! You are now able to sign in.")
+        return redirect(url_for("users.signin"))
+    context = {"form": form}
+    return render_template("reset_token.pug", **context)
