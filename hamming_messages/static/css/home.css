@@ -258,7 +258,8 @@ main {
     main .users::-webkit-scrollbar {
       display: none; }
     main .users h4 {
-      color: #ff725e; }
+      color: #ff725e;
+      padding-top: 10px; }
     main .users ul {
       padding: 0;
       width: 80%; }
