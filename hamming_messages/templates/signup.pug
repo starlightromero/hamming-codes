@@ -11,28 +11,28 @@ block content
           legend Sign Up
           | {{ form.username.label }}
           if form.username.errors
-            | {{ form.username(class='is-invalid') }}
+            | {{ form.username(class='is-invalid', placeholder='username') }}
             .invalid-feedback
               each error in form.username.errors
                 p= error
           else
-            | {{ form.username }}
+            | {{ form.username(placeholder='username') }}
           | {{ form.email.label }}
           if form.email.errors
-            | {{ form.email(class='is-invalid') }}
+            | {{ form.email(class='is-invalid', placeholder='name@address.com') }}
             .invalid-feedback
               each error in form.email.errors
                 p= error
           else
-            | {{ form.email }}
+            | {{ form.email(placeholder='name@address.com') }}
           | {{ form.password.label }}
           if form.password.errors
-            | {{ form.password(class='is-invalid') }}
+            | {{ form.password(class='is-invalid', placeholder='Enter your password', minlength='8') }}
             .invalid-feedback
               each error in form.password.errors
                 p= error
           else
-            | {{ form.password }}
+            | {{ form.password(placeholder='Enter your password', minlength='8') }}
         .submit
           | {{ form.submit }}
       .change-form
