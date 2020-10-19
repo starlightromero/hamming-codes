@@ -84,6 +84,7 @@ Graphics by [freepik](https://www.freepik.com/vectors/people)
 <img src="/design/logos/pug.png" alt="pug" width="100"/>
 <img src="/design/logos/css3.png" alt="css3" width="100"/>
 <img src="/design/logos/sass.png" alt="sass" width="100"/>
+<img src="/design/logos/js.png" alt="js" width="100"/>
 <img src="/design/logos/flask.png" alt="flask" width="100"/>
 <img src="/design/logos/socket.io.png" alt="socket.io" width="100"/>
 <img src="/design/logos/postgresql.png" alt="postgresql" width="100"/>
