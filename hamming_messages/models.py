@@ -19,7 +19,7 @@ class User(db.Model, UserMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
+    email = db.Column(db.String(60), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=True)
     messages = db.relationship("Message", backref="sender", lazy=True)
     is_online = db.Column(db.Boolean, nullable=False, default=True)
@@ -72,7 +72,7 @@ class Message(db.Model):
     """Message database class."""
 
     id = db.Column(db.Integer, primary_key=True)
-    message = db.Column(db.String(500), nullable=False)
+    message = db.Column(db.String(60), nullable=False)
     date = db.Column(db.DateTime, default=datetime.utcnow)
     sender_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     room_id = db.Column(db.Integer, db.ForeignKey("room.id"))
