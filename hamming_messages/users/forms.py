@@ -6,8 +6,8 @@ from wtforms.fields import (
     PasswordField,
     SubmitField,
     BooleanField,
+    EmailField,
 )
-from wtforms.fields.html5 import EmailField
 from hamming_messages.models import User
 
 
@@ -17,7 +17,7 @@ class SignupForm(FlaskForm):
     username = StringField(
         "Username", validators=[DataRequired(), Length(min=2, max=20)]
     )
-    email = EmailField("Email Address", validators=[DataRequired()])
+    email = EmailField("Email Address", validators=[DataRequired(), Email()])
     password = PasswordField(
         "Password", validators=[DataRequired(), Length(min=8, max=20)]
     )
@@ -47,7 +47,7 @@ class SignupForm(FlaskForm):
 class SigninForm(FlaskForm):
     """User signin form."""
 
-    email = EmailField("Email Address", validators=[DataRequired()])
+    email = EmailField("Email Address", validators=[DataRequired(), Email()])
     password = PasswordField(
         "Password", validators=[DataRequired(), Length(min=8, max=20)]
     )
@@ -61,7 +61,7 @@ class UpdateAccountForm(FlaskForm):
     username = StringField(
         "Username", validators=[DataRequired(), Length(min=2, max=20)]
     )
-    email = EmailField("Email Address", validators=[DataRequired()])
+    email = EmailField("Email Address", validators=[DataRequired(), Email()])
     submit = SubmitField("Update")
 
     def validate_username(self, username):
@@ -83,3 +83,30 @@ class UpdateAccountForm(FlaskForm):
                     page and click \"Forgot Password\".
                     """
             )
+
+
+class RequestResetForm(FlaskForm):
+    """Request password reset form."""
+
+    email = StringField("Email Address", validators=[DataRequired(), Email()])
+    submit = SubmitField("Request Password Reset")
+
+    def validate_email(self, email):
+        """Validate email is associated with a user."""
+        user = User.query.filter_by(email=email.data).first()
+        if user is None:
+            raise ValidationError(
+                """
+                There is no account associated with that email.
+                Please sign up for an account.
+                """
+            )
+
+
+class ResetPasswordForm(FlaskForm):
+    """Reset password form."""
+
+    password = PasswordField(
+        "Password", validators=[DataRequired(), Length(min=8, max=20)]
+    )
+    submit = SubmitField("Reset Password")
