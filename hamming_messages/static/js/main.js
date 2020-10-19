@@ -260,7 +260,7 @@ window.addEventListener('DOMContentLoaded', () => {
         addDistruptedListener(ul)
       }
       messages.appendChild(ul)
-      if (ul.previousElementSibling.tagName === 'P') {
+      while (ul.previousElementSibling.tagName === 'P') {
         ul.previousElementSibling.remove()
       }
     } else if (data['message']) {
