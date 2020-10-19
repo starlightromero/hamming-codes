@@ -6,9 +6,7 @@ block head
 block content
   | {% with messages = get_flashed_messages() %}
   | {% if messages %}
-  | {% for message in messages %}
-  | <p>{{ message }}</p>
-  | {% endfor %}
+  | <p>{{ message[0] }}</p>
   | {% endif %}
   | {% endwith %}
   main
