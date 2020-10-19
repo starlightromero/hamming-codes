@@ -53,7 +53,25 @@ The car is the version of an app which most people see when they first imagine t
 
 ## Mock-ups
 
+#### Welcome Page
+
 <img src="/design/mockups/welcome.svg" alt="welcome page" width="100%"/>
+
+#### Sign Up Page
+
+<img src="/design/mockups/signup.svg" alt="signup page" width="100%"/>
+
+#### Sign In Page
+
+<img src="/design/mockups/signin.svg" alt="signin page" width="100%"/>
+
+#### Main Page
+
+<img src="/design/mockups/main.svg" alt="main page" width="100%"/>
+
+#### About Page
+
+<img src="/design/mockups/about.svg" alt="about page" width="100%"/>
 
 Made with Figma. [See more](https://www.figma.com/file/01OxuSXerWe36U8HUM0os9/Hamming-Messages?node-id=15%3A1135).
 
