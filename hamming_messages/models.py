@@ -102,6 +102,6 @@ class Room(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), nullable=False)
-    description = db.Column(db.String(200), nullable=False)
+    description = db.Column(db.String(60), nullable=False)
     users = db.relationship("User", backref="room", lazy=True)
     messages = db.relationship("Message", backref="room", lazy=True)

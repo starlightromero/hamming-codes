@@ -22,7 +22,7 @@ block content
       .messages(id='messages')
         h1 No Chat Rooms
       .send
-        input(type='text' id='newMessage' placeholder="What's on your mind?")
+        input(type='text' id='newMessage' placeholder="What's on your mind?" minlength='2', maxlength='60')
         .sendActions
           button(type='button' id='disruptedSendButton') Send Disruption
           button(type='submit' id='sendButton') Send

@@ -6,7 +6,9 @@ from wtforms.fields import StringField, SubmitField
 class AddRoomForm(FlaskForm):
     """Add chat room form."""
 
-    name = StringField("Name", validators=[DataRequired()])
+    name = StringField(
+        "Name", validators=[DataRequired(), Length(min=2, max=30)]
+    )
     description = StringField(
         "Description", validators=[DataRequired(), Length(min=2, max=60)]
     )
