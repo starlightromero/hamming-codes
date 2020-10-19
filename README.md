@@ -74,7 +74,8 @@ The car is the version of an app which most people see when they first imagine t
 <img src="/design/mockups/about.svg" alt="about page" width="100%"/>
 
 Made with Figma. [See more](https://www.figma.com/file/01OxuSXerWe36U8HUM0os9/Hamming-Messages?node-id=15%3A1135)
-Graphics by [freepik](href='https://www.freepik.com/vectors/people')
+
+Graphics by [freepik](https://www.freepik.com/vectors/people)
 
 ## Technologies
 
