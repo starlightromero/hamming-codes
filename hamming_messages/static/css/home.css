@@ -285,7 +285,7 @@ main {
     right: 0; }
   main .addRoomModal, main .settingsModal {
     background-color: #ffdbc8;
-    border: 1px solid #ff725e;
+    border: 3px solid #ff725e;
     border-radius: 40px;
     z-index: 6;
     position: absolute;
