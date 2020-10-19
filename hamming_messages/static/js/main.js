@@ -350,7 +350,8 @@ window.addEventListener('DOMContentLoaded', () => {
       )
       newMessage.value = ''
     } else {
-      // Print message to user "Message has to be longer than 1 character"
+      document.getElementById('newMessage').placeholder = 'Distrupted message must be longer than one character.'
+      document.getElementById('newMessage').value = ''
     }
   })
 
