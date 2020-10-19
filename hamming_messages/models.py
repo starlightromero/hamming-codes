@@ -1,10 +1,11 @@
 """Import libraries."""
 from datetime import datetime
-from flask import url_for
+from flask import url_for, current_app
 from flask_login import UserMixin
+from flask_mail import Message as MailMessage
 from passlib.hash import sha256_crypt
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-from hamming_messages import db, login_manager, create_app, mail
+from hamming_messages import db, login_manager, mail
 
 
 @login_manager.user_loader
@@ -45,14 +46,16 @@ class User(db.Model, UserMixin):
     def send_reset_email(self):
         """Send password reset email."""
         token = self.get_reset_token()
-        msg = Message(
+        msg = MailMessage(
             "Password Reset Request",
             recipients=[self.email],
         )
         msg.body = f"""To reset your password, visit the following link:
-    {url_for('users.reset_token', token=token, _external=True)}
-    If you did not make this request, please ignore this email.
-    """
+
+{url_for('users.reset_token', token=token, _external=True)}
+
+If you did not make this request, please ignore this email.
+"""
         mail.send(msg)
 
     @staticmethod
