@@ -31,15 +31,19 @@ When embarking on a journey it is important to outline various stages of the jou
 
 The skateboard is the simplest version of your app idea. It includes the app's one core feature and not much else. The purpose of the skateboard is to get your project off the ground and moving quickly.
 
+<p align="left">
 <img src="/design/wireframes/skateboard-welcome.jpeg" alt="skateboard welcome" width="50%"/>
 <img src="/design/wireframes/skateboard-messages.jpeg" alt="skateboard messages" width="50%"/>
+</p>
 
 ### Bike
 
 The bike is the next stage of development. It includes accent features that support your app and its main feature. The purpose of the bike is to bridge the gap between the skateboard and the car.
 
+<p align="left">
 <img src="/design/wireframes/bike-welcome.jpeg" alt="bike welcome" width="50%"/>
 <img src="/design/wireframes/bike-messages.jpeg" alt="bike messages" width="50%"/>
+</p>
 
 ### Car
 
