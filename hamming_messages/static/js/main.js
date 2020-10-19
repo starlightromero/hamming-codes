@@ -387,6 +387,7 @@ window.addEventListener('DOMContentLoaded', () => {
     li.appendChild(document.createTextNode(room))
     li.classList.add('room')
     rooms.appendChild(li)
+    changeRoom(li)
     longPressRoomToDelete(li)
   }
 
@@ -409,7 +410,6 @@ window.addEventListener('DOMContentLoaded', () => {
         if (response) {
           closeAddRoomModal()
           socket.emit('addNewRoom', {'room': response.data})
-          changeRoom(li)
           leaveRoom(document.getElementById('currentRoom'))
           joinRoom(li)
         }
