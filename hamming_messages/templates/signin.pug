@@ -1,17 +1,20 @@
 extends base.pug
 block head
+  script(type='text/javascript' src='{{ url_for("static", filename="js/backWelcome.js") }}' defer)
   link(rel='stylesheet' href='{{ url_for("static", filename="css/form.css") }}')
 
 block content
+  | {% with messages = get_flashed_messages() %}
+  | {% if messages %}
+  | {% for message in messages %}
+  | <p>{{ message }}</p>
+  | {% endfor %}
+  | {% endif %}
+  | {% endwith %}
   main
+    .back
+      img(src='{{ url_for("static", filename="assets/back.svg") }}' id='backButton')
     .signin
-      | {% with messages = get_flashed_messages() %}
-      | {% if messages %}
-      | {% for message in messages %}
-      | <p>{{ message }}</p>
-      | {% endfor %}
-      | {% endif %}
-      | {% endwith %}
       form(method="POST")
         | {{ form.hidden_tag() }}
         fieldset
@@ -34,6 +37,7 @@ block content
             | {{ form.password(placeholder='Enter your password', minlength='8') }}
         .submit
           | {{ form.submit }}
+        small #[a(href='{{ url_for("users.reset_request") }}') Forgot Password?]
       .change-form
         small Need an account? #[a(href='{{ url_for("users.signup") }}') Sign Up]
     .image

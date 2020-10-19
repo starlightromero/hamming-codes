@@ -9,6 +9,22 @@ main
   align-items: center
   background-color: $light-color
 
+  .back
+    position: absolute
+    top: 10px
+    left: 10px
+
+    img
+      background-color: $primary-color
+      border-radius: 100%
+      width: 36px
+      height: 36px
+      padding: 5px
+      cursor: pointer
+
+      &:hover
+        background-color: $accent-color
+
   .signin, .signup
     flex-basis: 50%
     width: 100%

@@ -1,9 +1,12 @@
 extends base.pug
 block head
+  script(type='text/javascript' src='{{ url_for("static", filename="js/backWelcome.js") }}' defer)
   link(rel='stylesheet' href='{{ url_for("static", filename="css/form.css") }}')
 
 block content
   main
+    .back
+      img(src='{{ url_for("static", filename="assets/back.svg") }}' id='backButton')
     .signup
       form(method="POST")
         | {{ form.hidden_tag() }}
