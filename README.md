@@ -31,26 +31,27 @@ When embarking on a journey it is important to outline various stages of the jou
 
 The skateboard is the simplest version of your app idea. It includes the app's one core feature and not much else. The purpose of the skateboard is to get your project off the ground and moving quickly.
 
-![Skateboard welcome](/design/wireframes/skateboard-welcome.jpeg)
-![Skateboard messages](/design/wireframes/skateboard-messages.jpeg)
+<img src="/design/wireframes/skateboard-welcome.jpeg" alt="skateboard welcome" width="50%"/>
+<img src="/design/wireframes/skateboard-messages.jpeg" alt="skateboard messages" width="50%"/>
 
 ### Bike
 
 The bike is the next stage of development. It includes accent features that support your app and its main feature. The purpose of the bike is to bridge the gap between the skateboard and the car.
 
-![Bike welcome](/design/wireframes/bike-welcome.jpeg)
-![Bike messages](/design/wireframes/bike-messages.jpeg)
+<img src="/design/wireframes/bike-welcome.jpeg" alt="bike welcome" width="50%"/>
+<img src="/design/wireframes/bike-messages.jpeg" alt="bike messages" width="50%"/>
 
 ### Car
 
 The car is the version of an app which most people see when they first imagine the app idea in their mind. The car has all the main features. It can also include features which aren't completely necessary but lend to the overall user experience.
 
-![Car messages](/design/wireframes/car.jpeg)
+<img src="/design/wireframes/car.jpeg" alt="car messages" width="50%"/>
 
 ## Mock-ups
 
 ## Technologies
 
+<p align="left">
 <img src="/design/logos/python.png" alt="python" width="100"/>
 <img src="/design/logos/pug.png" alt="pug" width="100"/>
 <img src="/design/logos/css3.png" alt="css3" width="100"/>
@@ -58,3 +59,4 @@ The car is the version of an app which most people see when they first imagine t
 <img src="/design/logos/flask.png" alt="flask" width="100"/>
 <img src="/design/logos/socket.io.png" alt="socket.io" width="100"/>
 <img src="/design/logos/postgresql.png" alt="postgresql" width="100"/>
+</p>
